@@ -1,0 +1,14 @@
+{
+  "type": "synthetic",
+  "baseline_seed": 42,
+  "candidate_seed": 101,
+  "normal_sessions": 40,
+  "scenario_sessions": 4,
+  "expected_review": [
+    "external-sensitive-transfer",
+    "unapproved-shell",
+    "high-volume-approved",
+    "lookalike-host"
+  ],
+  "warning": "High-volume approved traffic is intentionally unusual, not necessarily malicious. No production accuracy claim."
+}

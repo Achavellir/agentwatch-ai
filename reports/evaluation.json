@@ -1,0 +1,33 @@
+{
+  "dataset": "Synthetic fixed fixtures; separate PRNG seeds; no production validation",
+  "baseline_sessions": 200,
+  "held_out_normal_sessions": 40,
+  "normal_sessions_flagged": 5,
+  "normal_flag_rate": 0.125,
+  "scenario_results": [
+    {
+      "session": "external-sensitive-transfer",
+      "ml": true,
+      "rules": true,
+      "review": true
+    },
+    {
+      "session": "high-volume-approved",
+      "ml": true,
+      "rules": false,
+      "review": true
+    },
+    {
+      "session": "unapproved-shell",
+      "ml": true,
+      "rules": true,
+      "review": true
+    },
+    {
+      "session": "lookalike-host",
+      "ml": false,
+      "rules": true,
+      "review": true
+    }
+  ]
+}

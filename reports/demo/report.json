@@ -1,0 +1,1629 @@
+{
+  "model": "IsolationForest",
+  "seed": 42,
+  "contamination": 0.05,
+  "baseline_sessions": 200,
+  "candidate_sessions": 44,
+  "note": "Negative margins indicate unusual behavior, not attack probability. Human review required. Rules and ML are independent.",
+  "sessions": [
+    {
+      "session_id": "external-sensitive-transfer",
+      "anomaly": true,
+      "anomaly_margin": -0.206502,
+      "review": true,
+      "features": {
+        "calls": 4,
+        "bytes_sent": 200000,
+        "external_calls": 4,
+        "sensitive_calls": 4,
+        "write_calls": 0,
+        "unique_tools": 1
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [
+        {
+          "event_id": "external-sensitive-transfer-0",
+          "line": 333,
+          "rules": [
+            "UNAPPROVED_DESTINATION",
+            "SENSITIVE_EXTERNAL_TRANSFER"
+          ]
+        },
+        {
+          "event_id": "external-sensitive-transfer-1",
+          "line": 334,
+          "rules": [
+            "UNAPPROVED_DESTINATION",
+            "SENSITIVE_EXTERNAL_TRANSFER"
+          ]
+        },
+        {
+          "event_id": "external-sensitive-transfer-2",
+          "line": 335,
+          "rules": [
+            "UNAPPROVED_DESTINATION",
+            "SENSITIVE_EXTERNAL_TRANSFER"
+          ]
+        },
+        {
+          "event_id": "external-sensitive-transfer-3",
+          "line": 336,
+          "rules": [
+            "UNAPPROVED_DESTINATION",
+            "SENSITIVE_EXTERNAL_TRANSFER"
+          ]
+        }
+      ],
+      "evidence_ids": [
+        "external-sensitive-transfer-0",
+        "external-sensitive-transfer-1",
+        "external-sensitive-transfer-2",
+        "external-sensitive-transfer-3"
+      ]
+    },
+    {
+      "session_id": "high-volume-approved",
+      "anomaly": true,
+      "anomaly_margin": -0.188817,
+      "review": true,
+      "features": {
+        "calls": 100,
+        "bytes_sent": 3000000,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 1
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "high-volume-approved-0",
+        "high-volume-approved-1",
+        "high-volume-approved-2",
+        "high-volume-approved-3",
+        "high-volume-approved-4",
+        "high-volume-approved-5",
+        "high-volume-approved-6",
+        "high-volume-approved-7",
+        "high-volume-approved-8",
+        "high-volume-approved-9",
+        "high-volume-approved-10",
+        "high-volume-approved-11",
+        "high-volume-approved-12",
+        "high-volume-approved-13",
+        "high-volume-approved-14",
+        "high-volume-approved-15",
+        "high-volume-approved-16",
+        "high-volume-approved-17",
+        "high-volume-approved-18",
+        "high-volume-approved-19",
+        "high-volume-approved-20",
+        "high-volume-approved-21",
+        "high-volume-approved-22",
+        "high-volume-approved-23",
+        "high-volume-approved-24",
+        "high-volume-approved-25",
+        "high-volume-approved-26",
+        "high-volume-approved-27",
+        "high-volume-approved-28",
+        "high-volume-approved-29",
+        "high-volume-approved-30",
+        "high-volume-approved-31",
+        "high-volume-approved-32",
+        "high-volume-approved-33",
+        "high-volume-approved-34",
+        "high-volume-approved-35",
+        "high-volume-approved-36",
+        "high-volume-approved-37",
+        "high-volume-approved-38",
+        "high-volume-approved-39",
+        "high-volume-approved-40",
+        "high-volume-approved-41",
+        "high-volume-approved-42",
+        "high-volume-approved-43",
+        "high-volume-approved-44",
+        "high-volume-approved-45",
+        "high-volume-approved-46",
+        "high-volume-approved-47",
+        "high-volume-approved-48",
+        "high-volume-approved-49",
+        "high-volume-approved-50",
+        "high-volume-approved-51",
+        "high-volume-approved-52",
+        "high-volume-approved-53",
+        "high-volume-approved-54",
+        "high-volume-approved-55",
+        "high-volume-approved-56",
+        "high-volume-approved-57",
+        "high-volume-approved-58",
+        "high-volume-approved-59",
+        "high-volume-approved-60",
+        "high-volume-approved-61",
+        "high-volume-approved-62",
+        "high-volume-approved-63",
+        "high-volume-approved-64",
+        "high-volume-approved-65",
+        "high-volume-approved-66",
+        "high-volume-approved-67",
+        "high-volume-approved-68",
+        "high-volume-approved-69",
+        "high-volume-approved-70",
+        "high-volume-approved-71",
+        "high-volume-approved-72",
+        "high-volume-approved-73",
+        "high-volume-approved-74",
+        "high-volume-approved-75",
+        "high-volume-approved-76",
+        "high-volume-approved-77",
+        "high-volume-approved-78",
+        "high-volume-approved-79",
+        "high-volume-approved-80",
+        "high-volume-approved-81",
+        "high-volume-approved-82",
+        "high-volume-approved-83",
+        "high-volume-approved-84",
+        "high-volume-approved-85",
+        "high-volume-approved-86",
+        "high-volume-approved-87",
+        "high-volume-approved-88",
+        "high-volume-approved-89",
+        "high-volume-approved-90",
+        "high-volume-approved-91",
+        "high-volume-approved-92",
+        "high-volume-approved-93",
+        "high-volume-approved-94",
+        "high-volume-approved-95",
+        "high-volume-approved-96",
+        "high-volume-approved-97",
+        "high-volume-approved-98",
+        "high-volume-approved-99"
+      ]
+    },
+    {
+      "session_id": "unapproved-shell",
+      "anomaly": true,
+      "anomaly_margin": -0.18505,
+      "review": true,
+      "features": {
+        "calls": 3,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 3,
+        "unique_tools": 1
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [
+        {
+          "event_id": "unapproved-shell-0",
+          "line": 337,
+          "rules": [
+            "ACTION_WITHOUT_APPROVAL"
+          ]
+        },
+        {
+          "event_id": "unapproved-shell-1",
+          "line": 338,
+          "rules": [
+            "ACTION_WITHOUT_APPROVAL"
+          ]
+        },
+        {
+          "event_id": "unapproved-shell-2",
+          "line": 339,
+          "rules": [
+            "ACTION_WITHOUT_APPROVAL"
+          ]
+        }
+      ],
+      "evidence_ids": [
+        "unapproved-shell-0",
+        "unapproved-shell-1",
+        "unapproved-shell-2"
+      ]
+    },
+    {
+      "session_id": "normal-16",
+      "anomaly": true,
+      "anomaly_margin": -0.072791,
+      "review": true,
+      "features": {
+        "calls": 12,
+        "bytes_sent": 3483,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-16-0",
+        "normal-16-1",
+        "normal-16-2",
+        "normal-16-3",
+        "normal-16-4",
+        "normal-16-5",
+        "normal-16-6",
+        "normal-16-7",
+        "normal-16-8",
+        "normal-16-9",
+        "normal-16-10",
+        "normal-16-11"
+      ]
+    },
+    {
+      "session_id": "normal-28",
+      "anomaly": true,
+      "anomaly_margin": -0.064284,
+      "review": true,
+      "features": {
+        "calls": 3,
+        "bytes_sent": 518,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-28-0",
+        "normal-28-1",
+        "normal-28-2"
+      ]
+    },
+    {
+      "session_id": "normal-26",
+      "anomaly": true,
+      "anomaly_margin": -0.018504,
+      "review": true,
+      "features": {
+        "calls": 4,
+        "bytes_sent": 520,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-26-0",
+        "normal-26-1",
+        "normal-26-2",
+        "normal-26-3"
+      ]
+    },
+    {
+      "session_id": "normal-12",
+      "anomaly": true,
+      "anomaly_margin": -0.006251,
+      "review": true,
+      "features": {
+        "calls": 3,
+        "bytes_sent": 782,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-12-0",
+        "normal-12-1",
+        "normal-12-2"
+      ]
+    },
+    {
+      "session_id": "normal-38",
+      "anomaly": true,
+      "anomaly_margin": -0.002321,
+      "review": true,
+      "features": {
+        "calls": 3,
+        "bytes_sent": 738,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-38-0",
+        "normal-38-1",
+        "normal-38-2"
+      ]
+    },
+    {
+      "session_id": "lookalike-host",
+      "anomaly": false,
+      "anomaly_margin": 0.044777,
+      "review": true,
+      "features": {
+        "calls": 3,
+        "bytes_sent": 627,
+        "external_calls": 3,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [
+        {
+          "event_id": "lookalike-host-0",
+          "line": 440,
+          "rules": [
+            "UNAPPROVED_DESTINATION"
+          ]
+        },
+        {
+          "event_id": "lookalike-host-1",
+          "line": 441,
+          "rules": [
+            "UNAPPROVED_DESTINATION"
+          ]
+        },
+        {
+          "event_id": "lookalike-host-2",
+          "line": 442,
+          "rules": [
+            "UNAPPROVED_DESTINATION"
+          ]
+        }
+      ],
+      "evidence_ids": [
+        "lookalike-host-0",
+        "lookalike-host-1",
+        "lookalike-host-2"
+      ]
+    },
+    {
+      "session_id": "normal-9",
+      "anomaly": false,
+      "anomaly_margin": 0.013515,
+      "review": false,
+      "features": {
+        "calls": 9,
+        "bytes_sent": 2009,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-9-0",
+        "normal-9-1",
+        "normal-9-2",
+        "normal-9-3",
+        "normal-9-4",
+        "normal-9-5",
+        "normal-9-6",
+        "normal-9-7",
+        "normal-9-8"
+      ]
+    },
+    {
+      "session_id": "normal-35",
+      "anomaly": false,
+      "anomaly_margin": 0.025483,
+      "review": false,
+      "features": {
+        "calls": 5,
+        "bytes_sent": 732,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-35-0",
+        "normal-35-1",
+        "normal-35-2",
+        "normal-35-3",
+        "normal-35-4"
+      ]
+    },
+    {
+      "session_id": "normal-25",
+      "anomaly": false,
+      "anomaly_margin": 0.037071,
+      "review": false,
+      "features": {
+        "calls": 7,
+        "bytes_sent": 2089,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-25-0",
+        "normal-25-1",
+        "normal-25-2",
+        "normal-25-3",
+        "normal-25-4",
+        "normal-25-5",
+        "normal-25-6"
+      ]
+    },
+    {
+      "session_id": "normal-19",
+      "anomaly": false,
+      "anomaly_margin": 0.041599,
+      "review": false,
+      "features": {
+        "calls": 6,
+        "bytes_sent": 926,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-19-0",
+        "normal-19-1",
+        "normal-19-2",
+        "normal-19-3",
+        "normal-19-4",
+        "normal-19-5"
+      ]
+    },
+    {
+      "session_id": "normal-27",
+      "anomaly": false,
+      "anomaly_margin": 0.047637,
+      "review": false,
+      "features": {
+        "calls": 10,
+        "bytes_sent": 3554,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-27-0",
+        "normal-27-1",
+        "normal-27-2",
+        "normal-27-3",
+        "normal-27-4",
+        "normal-27-5",
+        "normal-27-6",
+        "normal-27-7",
+        "normal-27-8",
+        "normal-27-9"
+      ]
+    },
+    {
+      "session_id": "normal-29",
+      "anomaly": false,
+      "anomaly_margin": 0.051771,
+      "review": false,
+      "features": {
+        "calls": 7,
+        "bytes_sent": 1495,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-29-0",
+        "normal-29-1",
+        "normal-29-2",
+        "normal-29-3",
+        "normal-29-4",
+        "normal-29-5",
+        "normal-29-6"
+      ]
+    },
+    {
+      "session_id": "normal-21",
+      "anomaly": false,
+      "anomaly_margin": 0.063789,
+      "review": false,
+      "features": {
+        "calls": 12,
+        "bytes_sent": 2366,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-21-0",
+        "normal-21-1",
+        "normal-21-2",
+        "normal-21-3",
+        "normal-21-4",
+        "normal-21-5",
+        "normal-21-6",
+        "normal-21-7",
+        "normal-21-8",
+        "normal-21-9",
+        "normal-21-10",
+        "normal-21-11"
+      ]
+    },
+    {
+      "session_id": "normal-32",
+      "anomaly": false,
+      "anomaly_margin": 0.063883,
+      "review": false,
+      "features": {
+        "calls": 3,
+        "bytes_sent": 695,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-32-0",
+        "normal-32-1",
+        "normal-32-2"
+      ]
+    },
+    {
+      "session_id": "normal-5",
+      "anomaly": false,
+      "anomaly_margin": 0.067788,
+      "review": false,
+      "features": {
+        "calls": 12,
+        "bytes_sent": 2917,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-5-0",
+        "normal-5-1",
+        "normal-5-2",
+        "normal-5-3",
+        "normal-5-4",
+        "normal-5-5",
+        "normal-5-6",
+        "normal-5-7",
+        "normal-5-8",
+        "normal-5-9",
+        "normal-5-10",
+        "normal-5-11"
+      ]
+    },
+    {
+      "session_id": "normal-34",
+      "anomaly": false,
+      "anomaly_margin": 0.068375,
+      "review": false,
+      "features": {
+        "calls": 7,
+        "bytes_sent": 2566,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-34-0",
+        "normal-34-1",
+        "normal-34-2",
+        "normal-34-3",
+        "normal-34-4",
+        "normal-34-5",
+        "normal-34-6"
+      ]
+    },
+    {
+      "session_id": "normal-4",
+      "anomaly": false,
+      "anomaly_margin": 0.069123,
+      "review": false,
+      "features": {
+        "calls": 12,
+        "bytes_sent": 3689,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-4-0",
+        "normal-4-1",
+        "normal-4-2",
+        "normal-4-3",
+        "normal-4-4",
+        "normal-4-5",
+        "normal-4-6",
+        "normal-4-7",
+        "normal-4-8",
+        "normal-4-9",
+        "normal-4-10",
+        "normal-4-11"
+      ]
+    },
+    {
+      "session_id": "normal-30",
+      "anomaly": false,
+      "anomaly_margin": 0.069125,
+      "review": false,
+      "features": {
+        "calls": 4,
+        "bytes_sent": 841,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-30-0",
+        "normal-30-1",
+        "normal-30-2",
+        "normal-30-3"
+      ]
+    },
+    {
+      "session_id": "normal-31",
+      "anomaly": false,
+      "anomaly_margin": 0.070983,
+      "review": false,
+      "features": {
+        "calls": 12,
+        "bytes_sent": 2479,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-31-0",
+        "normal-31-1",
+        "normal-31-2",
+        "normal-31-3",
+        "normal-31-4",
+        "normal-31-5",
+        "normal-31-6",
+        "normal-31-7",
+        "normal-31-8",
+        "normal-31-9",
+        "normal-31-10",
+        "normal-31-11"
+      ]
+    },
+    {
+      "session_id": "normal-11",
+      "anomaly": false,
+      "anomaly_margin": 0.081905,
+      "review": false,
+      "features": {
+        "calls": 11,
+        "bytes_sent": 3016,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-11-0",
+        "normal-11-1",
+        "normal-11-2",
+        "normal-11-3",
+        "normal-11-4",
+        "normal-11-5",
+        "normal-11-6",
+        "normal-11-7",
+        "normal-11-8",
+        "normal-11-9",
+        "normal-11-10"
+      ]
+    },
+    {
+      "session_id": "normal-13",
+      "anomaly": false,
+      "anomaly_margin": 0.082528,
+      "review": false,
+      "features": {
+        "calls": 10,
+        "bytes_sent": 3221,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-13-0",
+        "normal-13-1",
+        "normal-13-2",
+        "normal-13-3",
+        "normal-13-4",
+        "normal-13-5",
+        "normal-13-6",
+        "normal-13-7",
+        "normal-13-8",
+        "normal-13-9"
+      ]
+    },
+    {
+      "session_id": "normal-6",
+      "anomaly": false,
+      "anomaly_margin": 0.085038,
+      "review": false,
+      "features": {
+        "calls": 8,
+        "bytes_sent": 1407,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-6-0",
+        "normal-6-1",
+        "normal-6-2",
+        "normal-6-3",
+        "normal-6-4",
+        "normal-6-5",
+        "normal-6-6",
+        "normal-6-7"
+      ]
+    },
+    {
+      "session_id": "normal-0",
+      "anomaly": false,
+      "anomaly_margin": 0.08915,
+      "review": false,
+      "features": {
+        "calls": 12,
+        "bytes_sent": 2733,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-0-0",
+        "normal-0-1",
+        "normal-0-2",
+        "normal-0-3",
+        "normal-0-4",
+        "normal-0-5",
+        "normal-0-6",
+        "normal-0-7",
+        "normal-0-8",
+        "normal-0-9",
+        "normal-0-10",
+        "normal-0-11"
+      ]
+    },
+    {
+      "session_id": "normal-37",
+      "anomaly": false,
+      "anomaly_margin": 0.103202,
+      "review": false,
+      "features": {
+        "calls": 11,
+        "bytes_sent": 2847,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-37-0",
+        "normal-37-1",
+        "normal-37-2",
+        "normal-37-3",
+        "normal-37-4",
+        "normal-37-5",
+        "normal-37-6",
+        "normal-37-7",
+        "normal-37-8",
+        "normal-37-9",
+        "normal-37-10"
+      ]
+    },
+    {
+      "session_id": "normal-24",
+      "anomaly": false,
+      "anomaly_margin": 0.103824,
+      "review": false,
+      "features": {
+        "calls": 6,
+        "bytes_sent": 1363,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-24-0",
+        "normal-24-1",
+        "normal-24-2",
+        "normal-24-3",
+        "normal-24-4",
+        "normal-24-5"
+      ]
+    },
+    {
+      "session_id": "normal-7",
+      "anomaly": false,
+      "anomaly_margin": 0.104598,
+      "review": false,
+      "features": {
+        "calls": 11,
+        "bytes_sent": 2835,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-7-0",
+        "normal-7-1",
+        "normal-7-2",
+        "normal-7-3",
+        "normal-7-4",
+        "normal-7-5",
+        "normal-7-6",
+        "normal-7-7",
+        "normal-7-8",
+        "normal-7-9",
+        "normal-7-10"
+      ]
+    },
+    {
+      "session_id": "normal-14",
+      "anomaly": false,
+      "anomaly_margin": 0.106066,
+      "review": false,
+      "features": {
+        "calls": 7,
+        "bytes_sent": 2208,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-14-0",
+        "normal-14-1",
+        "normal-14-2",
+        "normal-14-3",
+        "normal-14-4",
+        "normal-14-5",
+        "normal-14-6"
+      ]
+    },
+    {
+      "session_id": "normal-8",
+      "anomaly": false,
+      "anomaly_margin": 0.112002,
+      "review": false,
+      "features": {
+        "calls": 6,
+        "bytes_sent": 1424,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-8-0",
+        "normal-8-1",
+        "normal-8-2",
+        "normal-8-3",
+        "normal-8-4",
+        "normal-8-5"
+      ]
+    },
+    {
+      "session_id": "normal-22",
+      "anomaly": false,
+      "anomaly_margin": 0.114681,
+      "review": false,
+      "features": {
+        "calls": 9,
+        "bytes_sent": 3007,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-22-0",
+        "normal-22-1",
+        "normal-22-2",
+        "normal-22-3",
+        "normal-22-4",
+        "normal-22-5",
+        "normal-22-6",
+        "normal-22-7",
+        "normal-22-8"
+      ]
+    },
+    {
+      "session_id": "normal-3",
+      "anomaly": false,
+      "anomaly_margin": 0.116515,
+      "review": false,
+      "features": {
+        "calls": 11,
+        "bytes_sent": 2281,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-3-0",
+        "normal-3-1",
+        "normal-3-2",
+        "normal-3-3",
+        "normal-3-4",
+        "normal-3-5",
+        "normal-3-6",
+        "normal-3-7",
+        "normal-3-8",
+        "normal-3-9",
+        "normal-3-10"
+      ]
+    },
+    {
+      "session_id": "normal-23",
+      "anomaly": false,
+      "anomaly_margin": 0.12091,
+      "review": false,
+      "features": {
+        "calls": 6,
+        "bytes_sent": 1795,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-23-0",
+        "normal-23-1",
+        "normal-23-2",
+        "normal-23-3",
+        "normal-23-4",
+        "normal-23-5"
+      ]
+    },
+    {
+      "session_id": "normal-10",
+      "anomaly": false,
+      "anomaly_margin": 0.122342,
+      "review": false,
+      "features": {
+        "calls": 6,
+        "bytes_sent": 1686,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-10-0",
+        "normal-10-1",
+        "normal-10-2",
+        "normal-10-3",
+        "normal-10-4",
+        "normal-10-5"
+      ]
+    },
+    {
+      "session_id": "normal-18",
+      "anomaly": false,
+      "anomaly_margin": 0.13198,
+      "review": false,
+      "features": {
+        "calls": 11,
+        "bytes_sent": 2690,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-18-0",
+        "normal-18-1",
+        "normal-18-2",
+        "normal-18-3",
+        "normal-18-4",
+        "normal-18-5",
+        "normal-18-6",
+        "normal-18-7",
+        "normal-18-8",
+        "normal-18-9",
+        "normal-18-10"
+      ]
+    },
+    {
+      "session_id": "normal-39",
+      "anomaly": false,
+      "anomaly_margin": 0.144156,
+      "review": false,
+      "features": {
+        "calls": 10,
+        "bytes_sent": 2555,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-39-0",
+        "normal-39-1",
+        "normal-39-2",
+        "normal-39-3",
+        "normal-39-4",
+        "normal-39-5",
+        "normal-39-6",
+        "normal-39-7",
+        "normal-39-8",
+        "normal-39-9"
+      ]
+    },
+    {
+      "session_id": "normal-20",
+      "anomaly": false,
+      "anomaly_margin": 0.146485,
+      "review": false,
+      "features": {
+        "calls": 10,
+        "bytes_sent": 2532,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-20-0",
+        "normal-20-1",
+        "normal-20-2",
+        "normal-20-3",
+        "normal-20-4",
+        "normal-20-5",
+        "normal-20-6",
+        "normal-20-7",
+        "normal-20-8",
+        "normal-20-9"
+      ]
+    },
+    {
+      "session_id": "normal-17",
+      "anomaly": false,
+      "anomaly_margin": 0.15501,
+      "review": false,
+      "features": {
+        "calls": 10,
+        "bytes_sent": 2353,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-17-0",
+        "normal-17-1",
+        "normal-17-2",
+        "normal-17-3",
+        "normal-17-4",
+        "normal-17-5",
+        "normal-17-6",
+        "normal-17-7",
+        "normal-17-8",
+        "normal-17-9"
+      ]
+    },
+    {
+      "session_id": "normal-15",
+      "anomaly": false,
+      "anomaly_margin": 0.156547,
+      "review": false,
+      "features": {
+        "calls": 10,
+        "bytes_sent": 2382,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-15-0",
+        "normal-15-1",
+        "normal-15-2",
+        "normal-15-3",
+        "normal-15-4",
+        "normal-15-5",
+        "normal-15-6",
+        "normal-15-7",
+        "normal-15-8",
+        "normal-15-9"
+      ]
+    },
+    {
+      "session_id": "normal-1",
+      "anomaly": false,
+      "anomaly_margin": 0.15907,
+      "review": false,
+      "features": {
+        "calls": 10,
+        "bytes_sent": 2231,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-1-0",
+        "normal-1-1",
+        "normal-1-2",
+        "normal-1-3",
+        "normal-1-4",
+        "normal-1-5",
+        "normal-1-6",
+        "normal-1-7",
+        "normal-1-8",
+        "normal-1-9"
+      ]
+    },
+    {
+      "session_id": "normal-33",
+      "anomaly": false,
+      "anomaly_margin": 0.174986,
+      "review": false,
+      "features": {
+        "calls": 9,
+        "bytes_sent": 2492,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-33-0",
+        "normal-33-1",
+        "normal-33-2",
+        "normal-33-3",
+        "normal-33-4",
+        "normal-33-5",
+        "normal-33-6",
+        "normal-33-7",
+        "normal-33-8"
+      ]
+    },
+    {
+      "session_id": "normal-2",
+      "anomaly": false,
+      "anomaly_margin": 0.17995,
+      "review": false,
+      "features": {
+        "calls": 8,
+        "bytes_sent": 1948,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-2-0",
+        "normal-2-1",
+        "normal-2-2",
+        "normal-2-3",
+        "normal-2-4",
+        "normal-2-5",
+        "normal-2-6",
+        "normal-2-7"
+      ]
+    },
+    {
+      "session_id": "normal-36",
+      "anomaly": false,
+      "anomaly_margin": 0.182885,
+      "review": false,
+      "features": {
+        "calls": 9,
+        "bytes_sent": 2224,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 3
+      },
+      "baseline_medians": {
+        "calls": 7.0,
+        "bytes_sent": 1832.5,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 0.0,
+        "unique_tools": 3.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "normal-36-0",
+        "normal-36-1",
+        "normal-36-2",
+        "normal-36-3",
+        "normal-36-4",
+        "normal-36-5",
+        "normal-36-6",
+        "normal-36-7",
+        "normal-36-8"
+      ]
+    }
+  ]
+}

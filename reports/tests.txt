@@ -1,0 +1,19 @@
+test_baseline_leakage_rejected (test_agentwatch.AgentWatchTests.test_baseline_leakage_rejected) ... ok
+test_credential_url_rejected (test_agentwatch.AgentWatchTests.test_credential_url_rejected) ... ok
+test_deterministic (test_agentwatch.AgentWatchTests.test_deterministic) ... ok
+test_duplicate_rejected (test_agentwatch.AgentWatchTests.test_duplicate_rejected) ... ok
+test_exact_domain_boundary (test_agentwatch.AgentWatchTests.test_exact_domain_boundary) ... ok
+test_html_escape (test_agentwatch.AgentWatchTests.test_html_escape) ... ok
+test_missing_approval_rejected (test_agentwatch.AgentWatchTests.test_missing_approval_rejected) ... ok
+test_negative_bytes_rejected (test_agentwatch.AgentWatchTests.test_negative_bytes_rejected) ... ok
+test_sensitive_transfer_evidence (test_agentwatch.AgentWatchTests.test_sensitive_transfer_evidence) ... ok
+test_small_baseline_rejected (test_agentwatch.AgentWatchTests.test_small_baseline_rejected) ... ok
+test_string_boolean_rejected (test_agentwatch.AgentWatchTests.test_string_boolean_rejected) ... ok
+test_volume_ml_independent_from_rules (test_agentwatch.AgentWatchTests.test_volume_ml_independent_from_rules) ... ok
+test_writer_rejects_credentials (test_agentwatch.AgentWatchTests.test_writer_rejects_credentials) ... ok
+test_writer_removes_query_and_path (test_agentwatch.AgentWatchTests.test_writer_removes_query_and_path) ... ok
+
+----------------------------------------------------------------------
+Ran 14 tests in 0.540s
+
+OK
