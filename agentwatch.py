@@ -22,34 +22,44 @@ def hostname(url):
     return parsed.hostname.lower().rstrip('.')
 
 
+def validate_event(event):
+    """Shared schema for imported events and the integration writer."""
+    if not isinstance(event, dict):
+        raise ValueError('event must be an object')
+    for key in ('event_id', 'session_id', 'tool'):
+        if not isinstance(event.get(key), str) or not 0 < len(event[key]) <= 200:
+            raise ValueError(f'invalid {key}')
+    if event['tool'] not in ALLOWED_TOOLS:
+        raise ValueError('unsupported tool')
+    if type(event.get('bytes_sent')) is not int or not 0 <= event['bytes_sent'] <= 10**12:
+        raise ValueError('invalid bytes_sent')
+    for key in ('sensitive', 'approved'):
+        if type(event.get(key)) is not bool:
+            raise ValueError(f'{key} must be boolean')
+    if not isinstance(event.get('destination', ''), str):
+        raise ValueError('invalid destination')
+    hostname(event.get('destination', ''))
+
+
 def load(path):
-    """Bound input size and reject ambiguous telemetry rather than silently scoring it."""
-    if Path(path).stat().st_size > 10_000_000:
+    """Read at most the input limit plus one byte, including growing files."""
+    with Path(path).open('rb') as stream:
+        raw = stream.read(10_000_001)
+    if len(raw) > 10_000_000:
         raise ValueError('Input exceeds 10 MB')
     sessions = defaultdict(list)
     ids = set()
-    for number, line in enumerate(Path(path).read_text().splitlines(), 1):
+    for number, line in enumerate(raw.decode('utf-8').splitlines(), 1):
         if not line.strip():
             continue
-        event = json.loads(line)
-        if not isinstance(event, dict):
-            raise ValueError(f'Line {number}: event must be an object')
-        for key in ('event_id', 'session_id', 'tool'):
-            if not isinstance(event.get(key), str) or not 0 < len(event[key]) <= 200:
-                raise ValueError(f'Line {number}: invalid {key}')
+        try:
+            event = json.loads(line)
+            validate_event(event)
+        except ValueError as error:
+            raise ValueError(f'Line {number}: {error}') from error
         if event['event_id'] in ids:
             raise ValueError(f'Line {number}: duplicate event ID')
         ids.add(event['event_id'])
-        if event['tool'] not in ALLOWED_TOOLS:
-            raise ValueError(f'Line {number}: unsupported tool')
-        if type(event.get('bytes_sent')) is not int or not 0 <= event['bytes_sent'] <= 10**12:
-            raise ValueError(f'Line {number}: invalid bytes_sent')
-        for key in ('sensitive', 'approved'):
-            if type(event.get(key)) is not bool:
-                raise ValueError(f'Line {number}: {key} must be boolean')
-        if not isinstance(event.get('destination', ''), str):
-            raise ValueError(f'Line {number}: invalid destination')
-        hostname(event.get('destination', ''))
         event['_line'] = number
         sessions[event['session_id']].append(event)
     if not sessions:
@@ -69,6 +79,8 @@ def findings(events, domains):
     for e in events:
         host = hostname(e.get('destination', ''))
         rules = []
+        if not host and (e['bytes_sent'] > 0 or e['tool'] == 'http'):
+            rules.append('MISSING_DESTINATION')
         if host and host not in domains:
             rules.append('UNAPPROVED_DESTINATION')
         if e['sensitive'] and e['bytes_sent'] > 0 and host and host not in domains:

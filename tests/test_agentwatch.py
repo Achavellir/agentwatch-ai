@@ -8,9 +8,12 @@ from make_demo import main
 class AgentWatchTests(unittest.TestCase):
     @classmethod
     def setUpClass(cls):
-        main()
-        cls.base = load('examples/baseline.jsonl')
-        cls.candidate = load('examples/candidate.jsonl')
+        cls.temporary = tempfile.TemporaryDirectory()
+        cls.addClassCleanup(cls.temporary.cleanup)
+        root = Path(cls.temporary.name)
+        main(root)
+        cls.base = load(root/'baseline.jsonl')
+        cls.candidate = load(root/'candidate.jsonl')
         cls.report = analyze(cls.base, cls.candidate, {'docs.example.com'})
 
     def parse(self, events):

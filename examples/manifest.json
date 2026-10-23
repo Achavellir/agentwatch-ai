@@ -10,5 +10,160 @@
     "high-volume-approved",
     "lookalike-host"
   ],
-  "warning": "High-volume approved traffic is intentionally unusual, not necessarily malicious. No production accuracy claim."
+  "labels": {
+    "normal-0": {
+      "kind": "normal"
+    },
+    "normal-1": {
+      "kind": "normal"
+    },
+    "normal-2": {
+      "kind": "normal"
+    },
+    "normal-3": {
+      "kind": "normal"
+    },
+    "normal-4": {
+      "kind": "normal"
+    },
+    "normal-5": {
+      "kind": "normal"
+    },
+    "normal-6": {
+      "kind": "normal"
+    },
+    "normal-7": {
+      "kind": "normal"
+    },
+    "normal-8": {
+      "kind": "normal"
+    },
+    "normal-9": {
+      "kind": "normal"
+    },
+    "normal-10": {
+      "kind": "normal"
+    },
+    "normal-11": {
+      "kind": "normal"
+    },
+    "normal-12": {
+      "kind": "normal"
+    },
+    "normal-13": {
+      "kind": "normal"
+    },
+    "normal-14": {
+      "kind": "normal"
+    },
+    "normal-15": {
+      "kind": "normal"
+    },
+    "normal-16": {
+      "kind": "normal"
+    },
+    "normal-17": {
+      "kind": "normal"
+    },
+    "normal-18": {
+      "kind": "normal"
+    },
+    "normal-19": {
+      "kind": "normal"
+    },
+    "normal-20": {
+      "kind": "normal"
+    },
+    "normal-21": {
+      "kind": "normal"
+    },
+    "normal-22": {
+      "kind": "normal"
+    },
+    "normal-23": {
+      "kind": "normal"
+    },
+    "normal-24": {
+      "kind": "normal"
+    },
+    "normal-25": {
+      "kind": "normal"
+    },
+    "normal-26": {
+      "kind": "normal"
+    },
+    "normal-27": {
+      "kind": "normal"
+    },
+    "normal-28": {
+      "kind": "normal"
+    },
+    "normal-29": {
+      "kind": "normal"
+    },
+    "normal-30": {
+      "kind": "normal"
+    },
+    "normal-31": {
+      "kind": "normal"
+    },
+    "normal-32": {
+      "kind": "normal"
+    },
+    "normal-33": {
+      "kind": "normal"
+    },
+    "normal-34": {
+      "kind": "normal"
+    },
+    "normal-35": {
+      "kind": "normal"
+    },
+    "normal-36": {
+      "kind": "normal"
+    },
+    "normal-37": {
+      "kind": "normal"
+    },
+    "normal-38": {
+      "kind": "normal"
+    },
+    "normal-39": {
+      "kind": "normal"
+    },
+    "external-sensitive-transfer": {
+      "kind": "scenario",
+      "required_rules": [
+        "UNAPPROVED_DESTINATION",
+        "SENSITIVE_EXTERNAL_TRANSFER"
+      ],
+      "expect_rules": true
+    },
+    "unapproved-shell": {
+      "kind": "scenario",
+      "required_rules": [
+        "ACTION_WITHOUT_APPROVAL"
+      ],
+      "expect_rules": true
+    },
+    "high-volume-approved": {
+      "kind": "scenario",
+      "required_rules": [],
+      "expect_rules": false
+    },
+    "lookalike-host": {
+      "kind": "scenario",
+      "required_rules": [
+        "UNAPPROVED_DESTINATION"
+      ],
+      "expect_rules": true
+    }
+  },
+  "max_normal_flags": 5,
+  "threshold_note": "Regression ceiling from the original 5/40 result; not a calibrated production target",
+  "sha256": {
+    "baseline.jsonl": "dc393646b76a0947b947b7df38549d73f4489cb7e047f309988a0828cf900992",
+    "candidate.jsonl": "31e456a1094d589e55f5c49d4358e551669d387e40263352d95e11a10b347b75"
+  },
+  "warning": "Known development fixtures, not an independent holdout. High-volume approved traffic is not necessarily malicious."
 }

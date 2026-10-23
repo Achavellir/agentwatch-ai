@@ -1,33 +1,46 @@
 {
-  "dataset": "Synthetic fixed fixtures; separate PRNG seeds; no production validation",
+  "dataset": "Frozen synthetic regression fixtures; not an independent benchmark",
   "baseline_sessions": 200,
+  "split_checks": "IDs and session content disjoint",
+  "fixture_sha256": {
+    "baseline.jsonl": "dc393646b76a0947b947b7df38549d73f4489cb7e047f309988a0828cf900992",
+    "candidate.jsonl": "31e456a1094d589e55f5c49d4358e551669d387e40263352d95e11a10b347b75"
+  },
+  "threshold_note": "Maximum 5 normal flags preserves the previously observed baseline; not a production false-alert target",
   "held_out_normal_sessions": 40,
   "normal_sessions_flagged": 5,
   "normal_flag_rate": 0.125,
+  "max_normal_flags": 5,
   "scenario_results": [
     {
       "session": "external-sensitive-transfer",
       "ml": true,
       "rules": true,
-      "review": true
-    },
-    {
-      "session": "high-volume-approved",
-      "ml": true,
-      "rules": false,
-      "review": true
+      "review": true,
+      "passed": true
     },
     {
       "session": "unapproved-shell",
       "ml": true,
       "rules": true,
-      "review": true
+      "review": true,
+      "passed": true
+    },
+    {
+      "session": "high-volume-approved",
+      "ml": true,
+      "rules": false,
+      "review": true,
+      "passed": true
     },
     {
       "session": "lookalike-host",
       "ml": false,
       "rules": true,
-      "review": true
+      "review": true,
+      "passed": true
     }
-  ]
+  ],
+  "passed": true,
+  "failures": []
 }

@@ -1,18 +1,23 @@
-I’ve been exploring a practical security question: how can we spot risky behavior when an AI agent starts using tools?
+I’ve finished the latest local version of AgentWatch AI, a security engineering portfolio project I’m building with AI coding assistance.
 
-With AI coding assistance, I built AgentWatch AI, a local prototype that combines:
-• Isolation Forest anomaly detection for unusual tool-use patterns
-• Explicit rules for unapproved destinations and actions without recorded approval
-• An offline analyst report with event-level evidence
+It reviews AI-agent tool activity using local machine learning and explicit policy rules, then produces an offline report with event-level evidence.
 
-One useful result: the model did not flag the lookalike-domain scenario, but the exact-hostname rule did. That is why I kept the two signals independent.
+This update focused on making the results more trustworthy:
+• Missing network destinations now trigger review instead of silently passing.
+• The trace writer and reader use the same input validation.
+• Evaluation checks fixture hashes, explicit labels, and copied sessions across data splits.
+• Regression checks fail when expected detections disappear or normal alerts exceed the recorded baseline.
 
-The synthetic evaluation used 200 baseline sessions and 44 separate test sessions. All four designed scenarios were flagged for review, along with 5 of 40 normal sessions. That 12.5% normal-session alert rate is a reminder that threshold calibration and representative data matter. These results are not production detection accuracy.
+All 38 automated tests pass locally.
 
-The project includes 14 automated tests, reproducible fixtures, an integration helper and documented limitations. It uses local machine learning, not an LLM API, and does not execute or block any agent actions.
+On the synthetic dataset, all four designed scenarios were flagged, alongside 5 of 40 normal sessions. One scenario is benign high-volume traffic, so “flagged” does not mean “attack detected.”
 
-Next step: validation with authorized real agent telemetry.
+A useful finding: the model missed the lookalike-domain scenario, while the exact-hostname rule caught it. Keeping those signals independent matters.
 
-Repository: https://github.com/Achavellir/agentwatch-ai
+This is an offline prototype, not a preventive control or a production-validated security product. Independent real-agent evaluation is still ahead.
 
-#AISecurity #DetectionEngineering #MachineLearning #Cybersecurity
+No paid model API or cloud hosting was needed for this update.
+
+Code: https://github.com/Achavellir/agentwatch-ai
+
+#AISecurity #DetectionEngineering #Python #Cybersecurity

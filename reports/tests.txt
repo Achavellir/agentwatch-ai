@@ -12,8 +12,32 @@ test_string_boolean_rejected (test_agentwatch.AgentWatchTests.test_string_boolea
 test_volume_ml_independent_from_rules (test_agentwatch.AgentWatchTests.test_volume_ml_independent_from_rules) ... ok
 test_writer_rejects_credentials (test_agentwatch.AgentWatchTests.test_writer_rejects_credentials) ... ok
 test_writer_removes_query_and_path (test_agentwatch.AgentWatchTests.test_writer_removes_query_and_path) ... ok
+test_bundled_split_is_disjoint (test_evaluation.EvaluationTests.test_bundled_split_is_disjoint) ... ok
+test_cli_nonzero_for_failed_gate (test_evaluation.EvaluationTests.test_cli_nonzero_for_failed_gate) ... ok
+test_detection_regression_fails (test_evaluation.EvaluationTests.test_detection_regression_fails) ... ok
+test_fixture_hash_mismatch_rejected (test_evaluation.EvaluationTests.test_fixture_hash_mismatch_rejected) ... ok
+test_frozen_regression_passes (test_evaluation.EvaluationTests.test_frozen_regression_passes) ... ok
+test_generator_reproduces_frozen_fixtures (test_evaluation.EvaluationTests.test_generator_reproduces_frozen_fixtures) ... ok
+test_missing_and_unknown_labels_rejected (test_evaluation.EvaluationTests.test_missing_and_unknown_labels_rejected) ... ok
+test_normal_alert_regression_fails (test_evaluation.EvaluationTests.test_normal_alert_regression_fails) ... ok
+test_renamed_reordered_copy_rejected (test_evaluation.EvaluationTests.test_renamed_reordered_copy_rejected) ... ok
+test_cli_writes_both_reports (test_hardening.HardeningTests.test_cli_writes_both_reports) ... ok
+test_empty_malformed_and_non_object_inputs (test_hardening.HardeningTests.test_empty_malformed_and_non_object_inputs) ... ok
+test_event_id_overlap_with_disjoint_session_ids (test_hardening.HardeningTests.test_event_id_overlap_with_disjoint_session_ids) ... ok
+test_file_size_boundary (test_hardening.HardeningTests.test_file_size_boundary) ... ok
+test_http_without_destination_even_with_zero_bytes (test_hardening.HardeningTests.test_http_without_destination_even_with_zero_bytes) ... ok
+test_local_read_without_network_is_not_flagged (test_hardening.HardeningTests.test_local_read_without_network_is_not_flagged) ... ok
+test_maximum_bytes_round_trip (test_hardening.HardeningTests.test_maximum_bytes_round_trip) ... ok
+test_missing_destination_overrides_normal_ml_score (test_hardening.HardeningTests.test_missing_destination_overrides_normal_ml_score) ... ok
+test_missing_destination_requires_review (test_hardening.HardeningTests.test_missing_destination_requires_review) ... ok
+test_unapproved_shell_rule_without_ml (test_hardening.HardeningTests.test_unapproved_shell_rule_without_ml) ... ok
+test_writer_rejects_invalid_record_before_writing (test_hardening.HardeningTests.test_writer_rejects_invalid_record_before_writing) ... ok
+test_end_to_end_and_no_overwrite (test_local_lab.LocalLabTests.test_end_to_end_and_no_overwrite) ... ok
+test_escape_symlink_and_failed_read_not_logged (test_local_lab.LocalLabTests.test_escape_symlink_and_failed_read_not_logged) ... ok
+test_real_operations_and_metadata_only (test_local_lab.LocalLabTests.test_real_operations_and_metadata_only) ... ok
+test_unapproved_scratch_write_is_recorded (test_local_lab.LocalLabTests.test_unapproved_scratch_write_is_recorded) ... ok
 
 ----------------------------------------------------------------------
-Ran 14 tests in 0.540s
+Ran 38 tests in 3.262s
 
 OK
