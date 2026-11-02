@@ -83,8 +83,10 @@ No network calls in the analyzer; no shell execution, unsafe deserialization or 
 - `tests/`: regression tests
 - `reports/`: generated demonstration and evaluation
 - `docs/`: explanation, proposed LinkedIn announcement, and evaluation contract
-- `.github/workflows/tests.yml`: prepared automated tests and regression gate
+- `.github/workflows/tests.yml`: automated tests and regression gate
 
-A GitHub Actions workflow is prepared locally at `.github/workflows/tests.yml`. It runs tests and the frozen evaluation on pushes and pull requests once published; no hosted run has been verified yet. Local test results are included in `reports/tests.txt`.
+GitHub Actions runs tests, the frozen evaluation, and a check that example fixtures remain unchanged on pushes and pull requests. It also supports manual runs. The [first hosted run passed on October 24, 2026](https://github.com/Achavellir/agentwatch-ai/actions/runs/40109804580), using Python 3.12 on Ubuntu. Local test results are included in `reports/tests.txt`.
+
+For a five-minute walkthrough, see [the demo guide](docs/DEMO.md).
 
 Code: MIT license. No employer code, customer data or employer performance claims are included.

@@ -27,4 +27,4 @@ python agentwatch.py --baseline examples/baseline.jsonl --input examples/candida
 python local_lab.py --output reports/new-local-run
 ```
 
-Choose a fresh lab output directory. No API key, model subscription, hosting or purchase is needed. GitHub CI is prepared locally but has not been run on GitHub. Dependency vulnerability database scanning and a fresh-environment installation audit were not performed in this release.
+Choose a fresh lab output directory. No API key, model subscription, hosting or purchase is needed. GitHub CI passed on October 24, 2026: [hosted run](https://github.com/Achavellir/agentwatch-ai/actions/runs/40109804580). That run installed dependencies and ran the tests and evaluation on Ubuntu with Python 3.12. Dependency vulnerability database scanning was not performed; passing installation and tests is not a vulnerability audit.
