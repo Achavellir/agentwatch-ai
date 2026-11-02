@@ -7,10 +7,10 @@ From the repository, activate the Python environment and run:
 ```sh
 python -m unittest discover -s tests -v
 python evaluate.py
-python agentwatch.py --baseline examples/baseline.jsonl --input examples/candidate.jsonl --allow-domain docs.example.com --output reports/demo
+python agentwatch.py --baseline examples/baseline.jsonl --input examples/candidate.jsonl --allow-domain docs.example.com --output reports/meeting-demo
 ```
 
-Open `reports/demo/report.html`. No server, model API key, or paid service is required. Keep the GitHub Actions page available to show automated checks.
+Open `reports/meeting-demo/report.html`. Choose a fresh directory on subsequent runs. No server, model API key, or paid service is required. Keep the GitHub Actions page available to show automated checks.
 
 ## Minute 1: Explain the problem
 

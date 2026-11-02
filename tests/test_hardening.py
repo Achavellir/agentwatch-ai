@@ -96,8 +96,8 @@ class HardeningTests(unittest.TestCase):
             result = subprocess.run([sys.executable, str(ROOT/'agentwatch.py'),
                 '--baseline', str(ROOT/'examples/baseline.jsonl'),
                 '--input', str(ROOT/'examples/candidate.jsonl'),
-                '--allow-domain', 'docs.example.com', '--output', d], capture_output=True, text=True)
+                '--allow-domain', 'docs.example.com', '--output', str(Path(d)/'run')], capture_output=True, text=True)
             self.assertEqual(result.returncode, 0, result.stderr)
-            report = json.loads((Path(d)/'report.json').read_text())
+            report = json.loads((Path(d)/'run/report.json').read_text())
             self.assertEqual(report['candidate_sessions'], 44)
-            self.assertIn('Content-Security-Policy', (Path(d)/'report.html').read_text())
+            self.assertIn('Content-Security-Policy', (Path(d)/'run/report.html').read_text())
