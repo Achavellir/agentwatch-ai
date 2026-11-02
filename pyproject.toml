@@ -1,0 +1,18 @@
+[build-system]
+requires = ["setuptools>=77,<81"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agentwatch-local"
+version = "0.2.0"
+description = "Offline policy and anomaly triage for developer-owned agent logs"
+readme = "README.md"
+requires-python = ">=3.11"
+license = "MIT"
+dependencies = ["scikit-learn==1.7.2"]
+
+[project.scripts]
+agentwatch = "agentwatch:main"
+
+[tool.setuptools]
+py-modules = ["agentwatch", "trace_writer"]

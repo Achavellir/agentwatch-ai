@@ -16,18 +16,26 @@ Research reviewed October 6, 2026:
 
 ## Run locally
 
-Python 3.11+ recommended; tested here with Python 3.14 on macOS.
+Python 3.11+ is required. Install the local command in a virtual environment:
 
 ```sh
 python3 -m venv .venv
 source .venv/bin/activate
-pip install -r requirements.txt
-python agentwatch.py --baseline examples/baseline.jsonl --input examples/candidate.jsonl --allow-domain docs.example.com --output reports/demo
+python -m pip install .
+agentwatch --version
+agentwatch --rules-only --input examples/candidate.jsonl --allow-domain docs.example.com --output reports/first-local-run
+```
+
+Open `reports/first-local-run/report.html`. Choose a new directory for each run: existing paths are rejected to preserve evidence. Reports remain on your computer. No server, API key or paid service is needed. Installation downloads Python dependencies; analysis runs offline.
+
+For optional ML, replace `--rules-only` with `--baseline examples/baseline.jsonl`. Use a representative reviewed baseline for real logs; bundled fixtures are only a demonstration. See [installation, input format, exit codes, privacy and recovery](docs/LOCAL_RELEASE.md).
+
+Developer checks:
+
+```sh
 python -m unittest discover -s tests -v
 python evaluate.py
 ```
-
-Open `reports/demo/report.html` in a browser. Expand a session to inspect evidence. No server, API key, paid service or external font is required. Repeat `--allow-domain` for multiple exact hostnames. Subdomains are not implicitly trusted.
 
 ## Controlled local tool lab (October 12 extension)
 

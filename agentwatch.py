@@ -3,11 +3,16 @@ import argparse
 from collections import defaultdict
 import html
 import json
+import os
+import re
+import sys
 from pathlib import Path
 from urllib.parse import urlsplit
 
 import numpy as np
 from sklearn.ensemble import IsolationForest
+
+__version__ = '0.2.0'
 
 FEATURES = ['calls', 'bytes_sent', 'external_calls', 'sensitive_calls', 'write_calls', 'unique_tools']
 ALLOWED_TOOLS = {'search', 'read', 'http', 'write', 'shell'}
@@ -111,19 +116,66 @@ def analyze(baseline, candidate, domains):
                      'review': bool(rules) or margin < 0, 'features': dict(zip(FEATURES, values)),
                      'baseline_medians': dict(zip(FEATURES, np.median(train, axis=0).tolist())),
                      'findings': rules, 'evidence_ids': [e['event_id'] for e in events]})
-    return {'model': 'IsolationForest', 'seed': 42, 'contamination': 0.05,
+    return {'schema_version': 1, 'agentwatch_version': __version__, 'model': 'IsolationForest', 'seed': 42, 'contamination': 0.05,
             'baseline_sessions': len(baseline), 'candidate_sessions': len(candidate),
             'note': 'Negative margins indicate unusual behavior, not attack probability. Human review required. Rules and ML are independent.',
             'sessions': sorted(rows, key=lambda r: (not r['review'], r['anomaly_margin']))}
+
+
+def normalize_domain(value):
+    """Accept explicit DNS hostnames; URLs, ports and wildcards are mistakes."""
+    value = value.lower().rstrip('.')
+    if len(value) > 253 or not value or any(
+        not re.fullmatch(r'[a-z0-9](?:[a-z0-9-]{0,61}[a-z0-9])?', label)
+        for label in value.split('.')
+    ):
+        raise ValueError('allow-domain must be an exact ASCII hostname, without scheme, path, port or wildcard')
+    return value
+
+
+def analyze_rules(candidate, domains):
+    rows = []
+    for sid, events in candidate.items():
+        rules = findings(events, domains)
+        rows.append({'session_id': sid, 'anomaly': False, 'anomaly_margin': None,
+                     'review': bool(rules), 'features': dict(zip(FEATURES, vector(events, domains))),
+                     'baseline_medians': dict.fromkeys(FEATURES, None),
+                     'findings': rules, 'evidence_ids': [e['event_id'] for e in events]})
+    return {'schema_version': 1, 'agentwatch_version': __version__, 'model': None,
+            'baseline_sessions': 0, 'candidate_sessions': len(candidate),
+            'note': 'Rules-only review. ML is disabled; no behavioral baseline is used. Human review required.',
+            'sessions': sorted(rows, key=lambda r: (not r['review'], r['session_id']))}
+
+
+def write_reports(report, output):
+    """A fresh private directory owns this run; never replace existing evidence.
+
+    Files are exclusively created. The destination parent must be controlled by
+    the caller; this is not a defense against a hostile process with the same UID.
+    On failure a partial directory may remain and must not be treated as a run.
+    """
+    payloads = {'report.json': json.dumps(report, indent=2, allow_nan=False) + '\n',
+                'report.html': render(report)}
+    output = Path(output)
+    output.parent.mkdir(parents=True, exist_ok=True)
+    output.mkdir(mode=0o700, exist_ok=False)
+    for name, content in payloads.items():
+        fd = os.open(output/name, os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+        with os.fdopen(fd, 'w', encoding='utf-8') as stream:
+            stream.write(content)
+    # Written last: consumers can distinguish complete runs from partial writes.
+    fd = os.open(output/'COMPLETE', os.O_WRONLY | os.O_CREAT | os.O_EXCL, 0o600)
+    with os.fdopen(fd, 'w', encoding='utf-8') as stream:
+        stream.write('AgentWatch report generation completed.\n')
 
 
 def render(report):
     esc = lambda x: html.escape(str(x), quote=True)
     cards = []
     for row in report['sessions']:
-        details = ''.join(f'<tr><td>{esc(k)}</td><td>{esc(v)}</td><td>{esc(row["baseline_medians"][k])}</td></tr>' for k, v in row['features'].items())
+        details = ''.join(f'<tr><td>{esc(k)}</td><td>{esc(v)}</td><td>{esc(row["baseline_medians"][k] if report["model"] else "Not used")}</td></tr>' for k, v in row['features'].items())
         cards.append(f'<article><h2>{esc(row["session_id"])} <small>{"REVIEW" if row["review"] else "No signal"}</small></h2>'
-                     f'<p>ML margin: {row["anomaly_margin"]} · Policy findings: {len(row["findings"])}</p>'
+                     f'<p>ML margin: {row["anomaly_margin"] if report["model"] else "Disabled"} · Policy findings: {len(row["findings"])}</p>'
                      f'<details><summary>Features, baseline and evidence</summary><table><tr><th>Feature</th><th>Observed</th><th>Baseline median</th></tr>{details}</table>'
                      f'<pre>{esc(json.dumps(row["findings"], indent=2))}</pre><p>Evidence IDs: {esc(", ".join(row["evidence_ids"]))}</p></details></article>')
     return '<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' + \
@@ -132,21 +184,38 @@ def render(report):
         f'<h1>AgentWatch AI</h1><p>Read-only agent security triage · {report["candidate_sessions"]} sessions · {report["baseline_sessions"]} baseline sessions</p><p>{esc(report["note"])}</p><p>Input provenance is not verified by this tool. Bundled examples are synthetic; results do not establish production accuracy.</p>' + ''.join(cards) + '</html>'
 
 
-def main():
+def main(argv=None):
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--baseline', required=True)
-    parser.add_argument('--input', required=True)
-    parser.add_argument('--allow-domain', action='append', default=[])
-    parser.add_argument('--output', required=True)
-    args = parser.parse_args()
-    domains = {d.lower().rstrip('.') for d in args.allow_domain}
-    report = analyze(load(args.baseline), load(args.input), domains)
-    output = Path(args.output)
-    output.mkdir(parents=True, exist_ok=True)
-    (output / 'report.json').write_text(json.dumps(report, indent=2))
-    (output / 'report.html').write_text(render(report))
-    print(f'{len(report["sessions"])} sessions; {sum(r["review"] for r in report["sessions"])} require review. Report: {output / "report.html"}')
+    parser.add_argument('--version', action='version', version=f'AgentWatch {__version__}')
+    mode = parser.add_mutually_exclusive_group(required=True)
+    mode.add_argument('--baseline', help='Reviewed JSONL baseline with at least 30 sessions')
+    mode.add_argument('--rules-only', action='store_true', help='Run policy rules without a baseline or ML')
+    parser.add_argument('--input', required=True, help='Candidate JSONL tool events (maximum 10 MB)')
+    parser.add_argument('--allow-domain', action='append', default=[], help='Exact ASCII hostname; repeat for multiple hosts')
+    parser.add_argument('--output', required=True, help='New report directory; existing paths are never overwritten')
+    args = parser.parse_args(argv)
+    try:
+        domains = {normalize_domain(d) for d in args.allow_domain}
+        candidate = load(args.input)
+        report = (analyze_rules(candidate, domains) if args.rules_only
+                  else analyze(load(args.baseline), candidate, domains))
+        write_reports(report, args.output)
+    except (ValueError, OSError, RecursionError) as error:
+        if isinstance(error, FileExistsError):
+            message = 'Output path already exists. Choose a new directory to preserve previous evidence.'
+        elif isinstance(error, UnicodeError):
+            message = 'Input must be UTF-8 JSONL.'
+        elif isinstance(error, OSError):
+            message = f'File operation failed: {error.strerror}. Check input paths, output permissions and disk space.'
+        elif isinstance(error, RecursionError):
+            message = 'Input nesting is too deep.'
+        else:
+            message = str(error)
+        print(f'AgentWatch: {message}', file=sys.stderr)
+        return 2
+    print(f'{len(report["sessions"])} sessions; {sum(r["review"] for r in report["sessions"])} require review. Report: {Path(args.output) / "report.html"}')
+    return 0
 
 
 if __name__ == '__main__':
-    main()
+    raise SystemExit(main())
