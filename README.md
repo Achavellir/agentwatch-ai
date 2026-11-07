@@ -98,3 +98,7 @@ GitHub Actions runs tests, the frozen evaluation, and a check that example fixtu
 For a five-minute walkthrough, see [the demo guide](docs/DEMO.md).
 
 Code: MIT license. No employer code, customer data or employer performance claims are included.
+
+## Dependency advisory check
+
+The [November 7, 2026 check](docs/DEPENDENCY_AUDIT.md) reported no known vulnerabilities in the six pinned runtime package versions. This is a dated advisory check, not a security certification or coverage of every future installation.
