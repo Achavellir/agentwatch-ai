@@ -1,5 +1,7 @@
 """Exercise the actual loopback boundary and shared policy checker."""
+import contextlib
 import http.client
+import io
 import json
 from pathlib import Path
 import threading
@@ -162,9 +164,16 @@ class LaunchTests(unittest.TestCase):
     def test_version_and_port_validation(self):
         from agentwatch_ui import main
         for args, code in [(['--version'], 0), (['--port', '-1'], 2), (['--port', '65536'], 2)]:
-            with self.subTest(args=args), self.assertRaises(SystemExit) as error:
+            # Capture argparse output so the test run stays clean.
+            out, err = io.StringIO(), io.StringIO()
+            with self.subTest(args=args), self.assertRaises(SystemExit) as error, \
+                    contextlib.redirect_stdout(out), contextlib.redirect_stderr(err):
                 main(args)
             self.assertEqual(error.exception.code, code)
+            if code == 0:
+                self.assertIn('0.3.0', out.getvalue())
+            else:
+                self.assertIn('port must be between 0 and 65535', err.getvalue())
 
     def test_start_open_stop_and_bind_error(self):
         from agentwatch_ui import main
