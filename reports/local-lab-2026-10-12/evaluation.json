@@ -1,0 +1,26 @@
+{
+  "provenance": "Actual disposable file reads/writes, scripted driver; no LLM decisions or network traffic",
+  "baseline_sessions": 60,
+  "normal_sessions": 20,
+  "normal_alert_counts": {
+    "ml": 1,
+    "rules": 0,
+    "combined": 1
+  },
+  "policy_violation": {
+    "ml": false,
+    "rules": true,
+    "combined": true
+  },
+  "benign_stress": {
+    "ml": false,
+    "rules": false,
+    "combined": false
+  },
+  "limitations": [
+    "One shared scripted task family, not an independent security benchmark",
+    "Labels come from predefined scenarios, not independent adjudication",
+    "No external-transfer, shell or prompt-injection scenarios executed",
+    "No real-agent or production accuracy claim; model threshold unchanged"
+  ]
+}

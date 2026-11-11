@@ -1,0 +1,33 @@
+{
+  "driver": "scripted local_lab.py",
+  "seeds": [
+    1201,
+    1202
+  ],
+  "labels": {
+    "candidate-000": "normal_scripted_workflow",
+    "candidate-001": "normal_scripted_workflow",
+    "candidate-002": "normal_scripted_workflow",
+    "candidate-003": "normal_scripted_workflow",
+    "candidate-004": "normal_scripted_workflow",
+    "candidate-005": "normal_scripted_workflow",
+    "candidate-006": "normal_scripted_workflow",
+    "candidate-007": "normal_scripted_workflow",
+    "candidate-008": "normal_scripted_workflow",
+    "candidate-009": "normal_scripted_workflow",
+    "candidate-010": "normal_scripted_workflow",
+    "candidate-011": "normal_scripted_workflow",
+    "candidate-012": "normal_scripted_workflow",
+    "candidate-013": "normal_scripted_workflow",
+    "candidate-014": "normal_scripted_workflow",
+    "candidate-015": "normal_scripted_workflow",
+    "candidate-016": "normal_scripted_workflow",
+    "candidate-017": "normal_scripted_workflow",
+    "candidate-018": "normal_scripted_workflow",
+    "candidate-019": "normal_scripted_workflow",
+    "candidate-020": "designed_policy_violation",
+    "candidate-021": "benign_high_volume_stress"
+  },
+  "paid_api_calls": 0,
+  "approval_source": "Fixed runner grants, not model output"
+}

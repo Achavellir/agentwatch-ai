@@ -1,0 +1,764 @@
+{
+  "model": "IsolationForest",
+  "seed": 42,
+  "contamination": 0.05,
+  "baseline_sessions": 60,
+  "candidate_sessions": 22,
+  "note": "Negative margins indicate unusual behavior, not attack probability. Human review required. Rules and ML are independent. Scripted local file operations only; no autonomous model or production telemetry.",
+  "sessions": [
+    {
+      "session_id": "candidate-013",
+      "anomaly": true,
+      "anomaly_margin": -0.040688,
+      "review": true,
+      "features": {
+        "calls": 2,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 1
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "1159340f-875a-447e-87a4-327acec9c2ca",
+        "55230c0f-cc28-4fb4-ae02-149c75084d19"
+      ]
+    },
+    {
+      "session_id": "candidate-020",
+      "anomaly": false,
+      "anomaly_margin": 0.136407,
+      "review": true,
+      "features": {
+        "calls": 5,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 1,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [
+        {
+          "event_id": "f651aba2-735b-4078-82b2-fd6764f569cf",
+          "line": 115,
+          "rules": [
+            "ACTION_WITHOUT_APPROVAL"
+          ]
+        }
+      ],
+      "evidence_ids": [
+        "b7a7ba68-d3f3-4e75-8f31-df753447ea26",
+        "addb78a8-b72b-4c7d-872b-e728bbce65db",
+        "6843728c-4860-46a3-9c0f-a420da235532",
+        "c2a79ec8-158c-454b-856c-bc54f8c95aef",
+        "f651aba2-735b-4078-82b2-fd6764f569cf"
+      ]
+    },
+    {
+      "session_id": "candidate-002",
+      "anomaly": false,
+      "anomaly_margin": 0.002141,
+      "review": false,
+      "features": {
+        "calls": 8,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 1
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "7bdf7e25-e572-4b5f-ae53-38acf4eddfe0",
+        "5fc2d606-e3e0-480d-915b-adbcc0ec8a6c",
+        "e5f0724b-4332-41d4-b0e8-cf92ecc2a8ef",
+        "a86af7aa-defb-4a7b-8abd-868dbfe3ab4a",
+        "8eb4a2d1-4b81-478f-ad16-62eaa0b47ded",
+        "aa2adb68-df04-47b8-8aa5-d1db41b91923",
+        "232060be-4131-4114-bdc0-48349ccdf469",
+        "962a5103-4986-49fb-98cb-c04cff911408"
+      ]
+    },
+    {
+      "session_id": "candidate-009",
+      "anomaly": false,
+      "anomaly_margin": 0.002141,
+      "review": false,
+      "features": {
+        "calls": 8,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 1
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "57f630d3-7725-47fe-b964-fb16d2a1f87b",
+        "f0215508-103a-4c04-910e-46ce7ffbdf88",
+        "780d26c2-7d85-4466-9606-38505f13d1a8",
+        "99bf4423-d2ac-42bc-af9e-432a3cde5c9a",
+        "07bc7938-0a4f-4845-8118-7587a61fb0b6",
+        "ac94e3cb-3606-41e5-b2dd-36b90650e497",
+        "0d5b6a85-fb42-4888-bdd9-83b16d8a5c6f",
+        "bccabac9-d948-4f3a-8a2c-ce0d7151bbf6"
+      ]
+    },
+    {
+      "session_id": "candidate-003",
+      "anomaly": false,
+      "anomaly_margin": 0.006117,
+      "review": false,
+      "features": {
+        "calls": 3,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 1,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "3c3cf997-d045-44d9-9f42-21f924bc17a0",
+        "c9dddcec-4fd9-4476-8be7-d73e3783d3bd",
+        "878ff36b-6ee9-4dda-8a70-d77ea835e634"
+      ]
+    },
+    {
+      "session_id": "candidate-019",
+      "anomaly": false,
+      "anomaly_margin": 0.006117,
+      "review": false,
+      "features": {
+        "calls": 3,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 1,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "c45e6a80-dc42-4d8d-ba62-531804236740",
+        "ff924dba-7bdc-4357-a520-9b8afa007313",
+        "7372ccb6-53ef-4205-9db0-15fada50cca0"
+      ]
+    },
+    {
+      "session_id": "candidate-016",
+      "anomaly": false,
+      "anomaly_margin": 0.006206,
+      "review": false,
+      "features": {
+        "calls": 10,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 2,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "7c72e0dd-f5bf-44f7-adc5-b28ea30fb0b8",
+        "fe4971cb-9373-47fe-8866-b7ba185fee34",
+        "3328a85a-b930-4286-a92f-c878d3b7c358",
+        "61fff29e-e62c-4835-9708-bbc156353b9b",
+        "3ef80978-2373-46b3-8645-6301df7f4725",
+        "6829d883-d55b-4142-be40-ebdb10e6289c",
+        "1d184a74-4151-41e4-8859-47f1939d1d12",
+        "20d424b1-1b57-47db-bb42-4161a5065d1a",
+        "a8dda87a-9bf1-415e-9b35-547638847226",
+        "fa0b4bc0-d906-4873-aa23-b33887363a3e"
+      ]
+    },
+    {
+      "session_id": "candidate-021",
+      "anomaly": false,
+      "anomaly_margin": 0.019957,
+      "review": false,
+      "features": {
+        "calls": 81,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 1,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "68e88a90-2640-4fb7-866a-c3f49a29b969",
+        "7984e256-5195-4f48-9792-0f3d20cd27c8",
+        "ed690b76-b0a6-4907-b23d-9bc3862334e7",
+        "b2df3778-5fbe-48fe-95cf-eacad0721a70",
+        "15463611-7e86-424a-b0f6-e2e3cd259ee0",
+        "c8157f23-fc5e-4096-b982-0b0ca541f81e",
+        "f75dbeec-94a5-4cc3-a746-fb20a791bc12",
+        "0b200b70-4eb9-465d-b50a-a561ef135363",
+        "295bd9bc-8f64-4fce-8985-5776c0a28f00",
+        "e2a588eb-f2ea-4633-a0d8-238cc6b58f82",
+        "2729938f-fcba-402f-9481-84589d7d2d02",
+        "f19c0ae5-c5b8-40cd-bb46-ba443bc84656",
+        "3ba62944-d6f3-4342-a2ea-378fa67b41d5",
+        "daeb6188-c0ed-4c04-99a9-2ac322b9b520",
+        "db6e8eba-6f1f-41cf-92ab-9fae035822e4",
+        "8f87ba8f-b124-4dfe-9a67-52adc6ec3562",
+        "5b8c618a-e1a2-440d-af24-c75b469196f7",
+        "dbf1a349-e9ce-484e-bc08-db0900c4929d",
+        "fb8fb774-2046-4694-b137-ce7018038a47",
+        "c58e5254-c4e1-40b6-830f-077b73174091",
+        "70b7db87-8ce0-4175-8231-08e7d435c511",
+        "abf51e50-5365-4b09-9359-0335fa78a9a1",
+        "22087908-4f77-4811-a320-45e3817ff484",
+        "f4ddbdcb-7d18-473a-9158-acd8fde021fd",
+        "b630e2ff-7121-464c-ba55-4df4a79643ba",
+        "417053d5-70c5-4c86-a08e-9081200b66ac",
+        "d0f9896c-427e-48c0-8539-9d1d4c3696c6",
+        "b421d322-aa94-4dc8-aa7b-a668a404420f",
+        "a3ecfd1d-bbfe-4cfc-a171-6515bb19b558",
+        "fa2e90db-1056-46e6-84bf-7cc6d5e1037d",
+        "7a7881b5-4f0b-4d99-8608-7b3c10239c9e",
+        "765ddec8-8cf4-404b-95aa-1e8f13bab1ed",
+        "f820f628-c7c6-4839-a4b2-7139b08b7fee",
+        "b68d39d6-5c2e-4dab-9dd5-b3cda2923f39",
+        "00a4da1c-9897-420b-8965-d6cb705775ad",
+        "b0d1bc5c-7c38-45f2-855f-1a8d1cfc34fc",
+        "495be5cf-0f2a-4765-ac67-28eede4efcc7",
+        "04fd5434-46c0-4640-be9a-dcd012ab56e8",
+        "2eb03da2-0521-4862-8c8e-889b88e0bf5d",
+        "efd604fb-cb6c-4ff5-bfa2-1fe6e60c184a",
+        "926914e4-8a46-47c9-b431-4972eeff4360",
+        "11b67060-8ebd-45e1-b5eb-62684e7152ff",
+        "fc214c2e-1b90-4084-a128-46238c7d2d67",
+        "2a3c0f85-3c3c-4b1b-88b1-0853bfa64f96",
+        "c7f737af-c073-4825-a03a-012198808129",
+        "74a03e37-9bef-4c35-b1a4-4083346ca5ea",
+        "11bfbfff-b4f1-45be-bb44-766e4be7e8ac",
+        "1b2fc306-e1c2-49bd-bade-2dcde1baf630",
+        "786a3666-a8de-431d-b36d-6c241e4fe71d",
+        "5b047c79-dc1c-4f6f-8079-bf95b29eb719",
+        "4f240918-d4a3-468a-af6a-0ee6d93ab10a",
+        "d90b9c32-97e2-43cc-8a10-70dda8be8ebb",
+        "ae7c114f-5d28-47a6-b967-eae4b90775a7",
+        "49eb3543-4686-4ef9-8bc5-d77462d80bca",
+        "c43a6bf6-3aa6-4247-b1b7-25ab67e93c7f",
+        "b244467e-8f4b-4cb1-816a-ebeb8b296648",
+        "71a013ed-2470-4768-9d02-f592ac19fa92",
+        "2e7bdb9f-e2a4-4564-b9a4-5b5c1198792a",
+        "9b22b8b6-ac04-4d0e-9475-43893eeb0d48",
+        "4709b08f-49ac-4061-a014-a920bed39230",
+        "9a0ef10e-d3a8-4237-b692-6634949df79f",
+        "afb0f45e-727c-41e1-ba82-4161a7e90aa5",
+        "efa3f3a5-e8a9-4afd-990e-f9f3c9747b93",
+        "bee08384-e707-46d3-95bd-25bcc63ea417",
+        "031aa63a-e593-468d-89d4-57ba88333f0f",
+        "74061483-d75d-4094-ade8-36aeafc9739a",
+        "5f78d578-69e1-4ccd-964f-823138e69422",
+        "26a0687e-cca3-401e-ae48-50bd5ae4c523",
+        "8a5a8822-5744-453f-84da-c9f91ce157b6",
+        "c5f15783-f8c7-448d-9238-4d09783e7a89",
+        "4125defd-80fc-43c7-b44c-849904ecdafb",
+        "b84c0d05-413f-4fa8-83aa-aecd6d3c7e29",
+        "32917fad-84d2-4f8d-ae11-e2d8c752229e",
+        "2cea7f9d-d2f6-4983-97ee-5a0fd68f5ef9",
+        "95644fc8-ddb6-4789-bf12-a0069a6799f6",
+        "95ccd3de-c7bc-4d88-977a-8b83fa09a749",
+        "e275d89c-00c2-418e-b59e-c8606251b1dc",
+        "099f076d-08fb-45ab-8547-375560dbec33",
+        "6220d955-78c4-4cff-bed0-e1f751107463",
+        "7f400563-fec6-4f18-b3f8-c2e83b67ed21",
+        "fdeee589-34a6-4c26-8d8a-71c6a66ab5c9"
+      ]
+    },
+    {
+      "session_id": "candidate-006",
+      "anomaly": false,
+      "anomaly_margin": 0.046,
+      "review": false,
+      "features": {
+        "calls": 9,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 2,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "cb2a139b-2733-4cea-b9f8-ff619e6dfe85",
+        "961d3060-bae3-4809-ace6-ecdbd1cd98d0",
+        "13406992-1b0c-4685-9e0d-47c21ff1260c",
+        "e09135c0-0d61-4816-b68f-84a00753363b",
+        "4679685c-3865-4091-93e9-d08b4196304e",
+        "669e472d-1c35-497d-972c-b0159bba1f79",
+        "f4b4657a-ba9f-45ad-a660-4e875cd0b848",
+        "cf844184-0f4c-4e94-abd2-a03c52e56447",
+        "51595549-7faa-4be4-8e04-4a079c0958c5"
+      ]
+    },
+    {
+      "session_id": "candidate-014",
+      "anomaly": false,
+      "anomaly_margin": 0.049065,
+      "review": false,
+      "features": {
+        "calls": 5,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 2,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "597d6975-7023-4a04-b883-4200effd3e4d",
+        "9a65d068-6e16-40ab-a31b-09e11e1a7702",
+        "7accee23-504b-4713-a7b7-1e88aeab79c2",
+        "faff916d-223c-4b1a-a782-00c4a7ea57be",
+        "a24cade6-6e6c-4b9a-8a45-b37f6cff13b2"
+      ]
+    },
+    {
+      "session_id": "candidate-011",
+      "anomaly": false,
+      "anomaly_margin": 0.055575,
+      "review": false,
+      "features": {
+        "calls": 3,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 1
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "83a91f84-779f-415d-98d8-ddb6c531a637",
+        "ffa2f19f-c105-4508-a513-8e977a791a28",
+        "429519f1-aa8b-443d-9d75-8f2f2c89a230"
+      ]
+    },
+    {
+      "session_id": "candidate-017",
+      "anomaly": false,
+      "anomaly_margin": 0.055575,
+      "review": false,
+      "features": {
+        "calls": 3,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 1
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "630470e1-97d3-4c7e-bde9-fd86223ac39c",
+        "05caed3e-4fd6-46d6-a537-34c988d8b256",
+        "77447e14-f67d-4df9-9d05-6978ef0fdee0"
+      ]
+    },
+    {
+      "session_id": "candidate-005",
+      "anomaly": false,
+      "anomaly_margin": 0.066786,
+      "review": false,
+      "features": {
+        "calls": 4,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 1
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "d067a4f7-c0f7-44af-9560-f6b1c1d2c84a",
+        "e7e9dee1-76d4-49a1-975b-5606769f2dce",
+        "16374db8-407a-441b-9567-daeca84612be",
+        "54979568-3e6b-4395-a201-819c4027dedb"
+      ]
+    },
+    {
+      "session_id": "candidate-018",
+      "anomaly": false,
+      "anomaly_margin": 0.071823,
+      "review": false,
+      "features": {
+        "calls": 6,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 1
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "f8215bf0-f023-4bb5-b93f-b315893fe807",
+        "7edaa7bd-0c77-47b8-88ed-05103b15b672",
+        "d3d9307d-fad6-45e5-9988-0953acbf3ff2",
+        "3380ef9b-e7b9-40d4-9faf-6203198136da",
+        "27aa8d47-984f-4e48-80cb-e6a3fa4fdd4c",
+        "c09e5e74-e887-4459-9b25-112c553d8b52"
+      ]
+    },
+    {
+      "session_id": "candidate-015",
+      "anomaly": false,
+      "anomaly_margin": 0.075998,
+      "review": false,
+      "features": {
+        "calls": 7,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 0,
+        "unique_tools": 1
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "3b8a5a80-047c-4d8a-8535-8d215d54744b",
+        "1ad2024d-757a-4d47-8e84-cbc9d35b4b19",
+        "791f38aa-3a5e-4692-96ea-109491905e0a",
+        "15ca98fc-1863-4514-81e9-ecbcf4f75285",
+        "623f86d6-cccc-4f9a-a206-e72e53494e54",
+        "0aed9d73-9b41-4031-b56c-f24ba81db2e1",
+        "8aa50527-c3c7-48cc-a58b-61d2a7faa36f"
+      ]
+    },
+    {
+      "session_id": "candidate-001",
+      "anomaly": false,
+      "anomaly_margin": 0.107187,
+      "review": false,
+      "features": {
+        "calls": 7,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 2,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "edf899c8-2e31-4e1c-8dd8-18ab85f9f8a5",
+        "2fbe2997-6f03-4612-8e64-3054d0d3f5f1",
+        "3ce8c8e9-7f7b-43ca-8cf7-37f07526861d",
+        "e4182d4c-ff1a-4d20-b340-40f6ab9d172a",
+        "682226aa-d569-4a7a-bbde-cc723516adc4",
+        "a9b16785-74df-4bf9-928b-1eb505aeaca0",
+        "1542b7cf-fe60-472c-a02e-adb2881f366c"
+      ]
+    },
+    {
+      "session_id": "candidate-007",
+      "anomaly": false,
+      "anomaly_margin": 0.11303,
+      "review": false,
+      "features": {
+        "calls": 4,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 1,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "1bdbb2ec-7469-499c-894d-6182161d6602",
+        "295e5c03-aacb-4d09-9cb4-2caa04b65046",
+        "fd1b0786-a76a-4c01-b06b-e10ff4516520",
+        "9931efd2-c081-4aa4-8058-e4899a89fa7b"
+      ]
+    },
+    {
+      "session_id": "candidate-000",
+      "anomaly": false,
+      "anomaly_margin": 0.136407,
+      "review": false,
+      "features": {
+        "calls": 5,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 1,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "cfbfe27d-327a-4372-b34e-a646290ee2b6",
+        "a6eeb6d2-691a-4a59-8ab2-4a30cee32169",
+        "ce782660-62d9-4b7a-8204-b304608a9c6d",
+        "c678d755-5448-4481-8329-1f3729547163",
+        "4614de33-42f1-4272-8b1a-71a0b7bd6f10"
+      ]
+    },
+    {
+      "session_id": "candidate-004",
+      "anomaly": false,
+      "anomaly_margin": 0.136407,
+      "review": false,
+      "features": {
+        "calls": 5,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 1,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "79a53186-a504-41fe-b48b-878d165bdc0d",
+        "6a4daaf7-5785-4cd9-bd3f-c812c66645c4",
+        "361bc797-1b42-47f4-acb1-3220ab9bf36d",
+        "2ba46c5d-ae23-4303-bd14-13660cb5d846",
+        "e52926f1-fbe6-46fd-a80c-54f0dfa2fa3d"
+      ]
+    },
+    {
+      "session_id": "candidate-012",
+      "anomaly": false,
+      "anomaly_margin": 0.136407,
+      "review": false,
+      "features": {
+        "calls": 5,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 1,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "7c722df0-5a3f-4146-9caa-d31016822852",
+        "6fda23a8-37b1-4fbf-a93b-53a19d2aacef",
+        "1cfac01d-3002-4031-88e4-f024e665d426",
+        "cc5dc0ab-ea33-4d36-85be-8f024926593e",
+        "a1cc6ceb-1692-4408-9834-fbd0b9024546"
+      ]
+    },
+    {
+      "session_id": "candidate-008",
+      "anomaly": false,
+      "anomaly_margin": 0.160678,
+      "review": false,
+      "features": {
+        "calls": 6,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 1,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "8d743ec7-ff1a-42bb-a514-749bf60a6329",
+        "f5ab96a6-e82f-4127-be99-d19852d08775",
+        "b931e6c7-02d1-4e4b-bad6-d9ffc284d56f",
+        "7a16ee1c-978e-48a7-9272-741dbc78de4e",
+        "edb15517-2f5c-42b5-81eb-993a194a0c47",
+        "afa3f7ef-efa5-47ad-a8d8-0e6e62746d9d"
+      ]
+    },
+    {
+      "session_id": "candidate-010",
+      "anomaly": false,
+      "anomaly_margin": 0.165305,
+      "review": false,
+      "features": {
+        "calls": 7,
+        "bytes_sent": 0,
+        "external_calls": 0,
+        "sensitive_calls": 0,
+        "write_calls": 1,
+        "unique_tools": 2
+      },
+      "baseline_medians": {
+        "calls": 6.0,
+        "bytes_sent": 0.0,
+        "external_calls": 0.0,
+        "sensitive_calls": 0.0,
+        "write_calls": 1.0,
+        "unique_tools": 2.0
+      },
+      "findings": [],
+      "evidence_ids": [
+        "d90b4e9b-5a04-45c7-a1e1-3b0bd9fc2cae",
+        "4f6b6f43-0ff5-4aef-802f-cebb2104014a",
+        "a84bd238-fdd9-4417-bd56-9d88c768333d",
+        "d94d644b-e70b-4f1d-afb9-9efcf3dd07d1",
+        "3821f32e-3b45-4274-ba5b-4c9e3254f18a",
+        "1ed86004-d6b9-473b-a13b-f4e311efd14b",
+        "63e869dc-8117-4939-accf-c67ed5b55c94"
+      ]
+    }
+  ]
+}

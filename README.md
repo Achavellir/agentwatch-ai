@@ -1,8 +1,8 @@
 # AgentWatch AI
 
-**Local machine-learning triage for AI-agent tool activity.** Built with AI assistance for Rishi Achavelli's security engineering portfolio.
+**Local policy review and optional machine-learning triage for AI-agent tool activity.** Built with AI assistance for Rishi Achavelli's security engineering portfolio.
 
-AgentWatch reads JSONL tool-event metadata, learns a baseline with Isolation Forest, and combines unusual-behavior signals with independent policy rules. It produces an offline HTML report and machine-readable JSON with event IDs and source-line evidence. It never runs tools, blocks traffic, sends messages, or contacts a model API.
+AgentWatch reads JSONL tool-event metadata and checks policy rules. The command line can optionally learn a baseline with Isolation Forest and combine unusual-behavior signals with those rules. It produces an offline HTML report and machine-readable JSON with event IDs and source-line evidence. It never runs tools, blocks traffic, sends messages, or contacts a model API.
 
 ## Why this project
 
@@ -13,6 +13,16 @@ Research reviewed October 6, 2026:
 - [OWASP MCP Top 10](https://owasp.org/projects/mcp-top-10?tab=top10)
 - [OpenAI: Designing agents to resist prompt injection](https://openai.com/index/designing-agents-to-resist-prompt-injection/)
 - [scikit-learn Isolation Forest](https://scikit-learn.org/1.7/modules/generated/sklearn.ensemble.IsolationForest.html)
+
+## Local browser interface
+
+Version 0.3.0 adds a local page to choose an activity file, enter approved websites, review findings and download reports. After installation, run:
+
+```sh
+agentwatch-ui --open
+```
+
+The browser runs policy checks only; optional ML remains in the CLI. Uploads are processed in memory on your computer. This is not a hosted website or live monitor. See the [browser guide and privacy boundaries](docs/BROWSER_UI.md).
 
 ## Run locally
 
@@ -84,6 +94,7 @@ No network calls in the analyzer; no shell execution, unsafe deserialization or 
 ## Repository layout
 
 - `agentwatch.py`: parser, rules, ML and report renderer
+- `agentwatch_ui/`: loopback browser interface and bundled assets
 - `trace_writer.py`: metadata-only integration helper
 - `local_lab.py`: instrumented disposable-file lab with a scripted driver
 - `make_demo.py`: reproducible synthetic fixtures

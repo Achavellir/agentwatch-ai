@@ -12,7 +12,7 @@ from urllib.parse import urlsplit
 import numpy as np
 from sklearn.ensemble import IsolationForest
 
-__version__ = '0.2.0'
+__version__ = '0.3.0'
 
 FEATURES = ['calls', 'bytes_sent', 'external_calls', 'sensitive_calls', 'write_calls', 'unique_tools']
 ALLOWED_TOOLS = {'search', 'read', 'http', 'write', 'shell'}
@@ -50,6 +50,11 @@ def load(path):
     """Read at most the input limit plus one byte, including growing files."""
     with Path(path).open('rb') as stream:
         raw = stream.read(10_000_001)
+    return load_bytes(raw)
+
+
+def load_bytes(raw):
+    """Validate UTF-8 JSONL from bounded local or browser input."""
     if len(raw) > 10_000_000:
         raise ValueError('Input exceeds 10 MB')
     sessions = defaultdict(list)
