@@ -36,8 +36,38 @@ test_end_to_end_and_no_overwrite (test_local_lab.LocalLabTests.test_end_to_end_a
 test_escape_symlink_and_failed_read_not_logged (test_local_lab.LocalLabTests.test_escape_symlink_and_failed_read_not_logged) ... ok
 test_real_operations_and_metadata_only (test_local_lab.LocalLabTests.test_real_operations_and_metadata_only) ... ok
 test_unapproved_scratch_write_is_recorded (test_local_lab.LocalLabTests.test_unapproved_scratch_write_is_recorded) ... ok
+test_bad_input_has_no_traceback_or_output (test_release.ReleaseTests.test_bad_input_has_no_traceback_or_output) ... ok
+test_existing_directory_is_preserved (test_release.ReleaseTests.test_existing_directory_is_preserved) ... ok
+test_invalid_domain_is_actionable (test_release.ReleaseTests.test_invalid_domain_is_actionable) ... ok
+test_missing_input_and_mode_conflict (test_release.ReleaseTests.test_missing_input_and_mode_conflict) ... ok
+test_output_symlink_is_rejected (test_release.ReleaseTests.test_output_symlink_is_rejected) ... ok
+test_partial_output_has_no_completion_marker (test_release.ReleaseTests.test_partial_output_has_no_completion_marker) ... ok
+test_rules_only_and_private_reports (test_release.ReleaseTests.test_rules_only_and_private_reports) ... ok
+test_version (test_release.ReleaseTests.test_version) ... ok
+test_assets_and_security_headers (test_ui.BrowserTests.test_assets_and_security_headers) ... ok
+test_bad_inputs_are_actionable_and_do_not_crash (test_ui.BrowserTests.test_bad_inputs_are_actionable_and_do_not_crash) ... ok
+test_busy_review_and_internal_error (test_ui.BrowserTests.test_busy_review_and_internal_error) ... ok
+test_cross_origin_host_and_token_are_rejected (test_ui.BrowserTests.test_cross_origin_host_and_token_are_rejected) ... ok
+test_empty_allowlist_flags_network_and_no_server_persistence (test_ui.BrowserTests.test_empty_allowlist_flags_network_and_no_server_persistence) ... ok
+test_malformed_envelope_and_unsupported_method (test_ui.BrowserTests.test_malformed_envelope_and_unsupported_method) ... ok
+test_no_filesystem_routes_or_preflight (test_ui.BrowserTests.test_no_filesystem_routes_or_preflight) ... ok
+test_real_upload_matches_cli_and_download_html (test_ui.BrowserTests.test_real_upload_matches_cli_and_download_html) ... ok
+test_session_limit_and_unicode_upload (test_ui.BrowserTests.test_session_limit_and_unicode_upload) ... ok
+test_size_and_content_type_limits (test_ui.BrowserTests.test_size_and_content_type_limits) ... ok
+test_truncated_upload_is_rejected (test_ui.BrowserTests.test_truncated_upload_is_rejected) ... ok
+test_untrusted_strings_are_escaped_in_export (test_ui.BrowserTests.test_untrusted_strings_are_escaped_in_export) ... ok
+test_start_open_stop_and_bind_error (test_ui.LaunchTests.test_start_open_stop_and_bind_error) ... AgentWatch local review: http://127.0.0.1:1234
+Press Ctrl+C to stop. No uploads are saved by the server.
+Could not start the local server. Try another port.
+ok
+test_version_and_port_validation (test_ui.LaunchTests.test_version_and_port_validation) ... usage: python -m unittest [-h] [--version] [--port PORT] [--open]
+python -m unittest: error: port must be between 0 and 65535
+usage: python -m unittest [-h] [--version] [--port PORT] [--open]
+python -m unittest: error: port must be between 0 and 65535
+ok
 
 ----------------------------------------------------------------------
-Ran 38 tests in 3.262s
+Ran 60 tests in 14.646s
 
 OK
+AgentWatch UI 0.3.0

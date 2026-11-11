@@ -16,7 +16,7 @@ class ReleaseTests(unittest.TestCase):
     def test_version(self):
         result = self.run_cli('--version')
         self.assertEqual(result.returncode, 0)
-        self.assertIn('0.2.0', result.stdout)
+        self.assertIn('0.3.0', result.stdout)
 
     def test_rules_only_and_private_reports(self):
         with tempfile.TemporaryDirectory() as d:

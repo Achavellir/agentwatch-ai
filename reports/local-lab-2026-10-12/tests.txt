@@ -1,0 +1,23 @@
+test_baseline_leakage_rejected (test_agentwatch.AgentWatchTests.test_baseline_leakage_rejected) ... ok
+test_credential_url_rejected (test_agentwatch.AgentWatchTests.test_credential_url_rejected) ... ok
+test_deterministic (test_agentwatch.AgentWatchTests.test_deterministic) ... ok
+test_duplicate_rejected (test_agentwatch.AgentWatchTests.test_duplicate_rejected) ... ok
+test_exact_domain_boundary (test_agentwatch.AgentWatchTests.test_exact_domain_boundary) ... ok
+test_html_escape (test_agentwatch.AgentWatchTests.test_html_escape) ... ok
+test_missing_approval_rejected (test_agentwatch.AgentWatchTests.test_missing_approval_rejected) ... ok
+test_negative_bytes_rejected (test_agentwatch.AgentWatchTests.test_negative_bytes_rejected) ... ok
+test_sensitive_transfer_evidence (test_agentwatch.AgentWatchTests.test_sensitive_transfer_evidence) ... ok
+test_small_baseline_rejected (test_agentwatch.AgentWatchTests.test_small_baseline_rejected) ... ok
+test_string_boolean_rejected (test_agentwatch.AgentWatchTests.test_string_boolean_rejected) ... ok
+test_volume_ml_independent_from_rules (test_agentwatch.AgentWatchTests.test_volume_ml_independent_from_rules) ... ok
+test_writer_rejects_credentials (test_agentwatch.AgentWatchTests.test_writer_rejects_credentials) ... ok
+test_writer_removes_query_and_path (test_agentwatch.AgentWatchTests.test_writer_removes_query_and_path) ... ok
+test_end_to_end_and_no_overwrite (test_local_lab.LocalLabTests.test_end_to_end_and_no_overwrite) ... ok
+test_escape_symlink_and_failed_read_not_logged (test_local_lab.LocalLabTests.test_escape_symlink_and_failed_read_not_logged) ... ok
+test_real_operations_and_metadata_only (test_local_lab.LocalLabTests.test_real_operations_and_metadata_only) ... ok
+test_unapproved_scratch_write_is_recorded (test_local_lab.LocalLabTests.test_unapproved_scratch_write_is_recorded) ... ok
+
+----------------------------------------------------------------------
+Ran 18 tests in 0.833s
+
+OK

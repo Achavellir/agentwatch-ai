@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="agentwatch-token" content="__TOKEN__">
+<title>AgentWatch | Local activity review</title>
+<link rel="stylesheet" href="/style.css"><script src="/app.js" defer></script>
+</head>
+<body>
+<header><a class="brand" href="/">AgentWatch<span>LOCAL REVIEW</span></a><span class="privacy">Runs on this computer</span></header>
+<main>
+<section class="intro"><p class="eyebrow">UNDERSTAND YOUR AGENT'S ACTIONS</p><h1>A clearer view of what needs review.</h1><p class="lede">Check recorded activity against your approved websites and approval rules. Get reasons to investigate, with a person making the final decision.</p></section>
+<div class="workspace">
+<section class="panel" aria-labelledby="setup-title">
+<h2 id="setup-title">Check activity</h2><p class="muted">Policy rules only. No machine-learning assessment.</p>
+<form id="review-form">
+<fieldset id="inputs"><legend class="sr-only">Review settings</legend>
+<label for="activity">1. Choose an activity file</label>
+<input type="file" id="activity" accept=".jsonl,.ndjson,.txt" aria-describedby="file-help">
+<p class="hint" id="file-help">UTF-8 JSONL, up to 2 MB. One event per line. Up to 2,000 sessions and 20,000 events.</p>
+<label for="domains">2. Enter approved websites</label>
+<textarea id="domains" rows="3" placeholder="docs.example.com" aria-describedby="domain-help"></textarea>
+<p class="hint" id="domain-help">One exact hostname per line. No https://, paths or wildcards. A blank list flags every recorded network destination.</p>
+<button type="submit" class="primary">Check activity</button>
+<div class="sample-actions"><button type="button" id="sample">Try a sample review</button><button type="button" id="download-sample">Download sample file</button></div>
+<p class="hint">The sample contains invented activity, not a live agent session.</p>
+</fieldset>
+</form>
+<details class="format"><summary>What should my activity file contain?</summary><p>Your application must record compatible events. AgentWatch does not automatically watch ChatGPT or your browser.</p><pre>{"event_id":"event-1","session_id":"session-1","tool":"http","destination":"https://docs.example.com","bytes_sent":50,"sensitive":false,"approved":true}</pre><p>Supported tools: read, search, http, write and shell. Approval and sensitivity fields must come from trusted application controls.</p></details>
+</section>
+<section class="panel results" aria-labelledby="results-title">
+<div class="section-top"><h2 id="results-title">Review results</h2><button id="clear" type="button" disabled>Clear results</button></div>
+<p id="status" role="status" aria-live="polite">Choose your activity file, or explore the sample.</p>
+<div id="empty"><div class="empty-mark" aria-hidden="true">✓</div><h3>Evidence before conclusions</h3><p>Your results will show which sessions need review and which recorded events triggered each rule.</p></div>
+<div id="results" hidden>
+<p id="source" class="source"></p><div class="metrics"><div><strong id="sessions">0</strong><span>Sessions checked</span></div><div><strong id="flagged">0</strong><span>Need review</span></div><div><strong id="findings">0</strong><span>Events flagged</span></div></div>
+<p class="hint">“No policy findings” does not prove safety. Unrecorded actions and behavior anomalies are not assessed here.</p>
+<div class="downloads"><a id="html-download" download="agentwatch-report.html">Download HTML report</a><a id="json-download" download="agentwatch-report.json">Download JSON</a></div>
+<label for="review-only" class="filter"><input type="checkbox" id="review-only" checked> Show only sessions needing review</label>
+<p id="list-summary" class="hint"></p><div id="cards"></div><button id="more" type="button" hidden>Show more sessions</button>
+</div>
+</section>
+</div>
+<footer><p><strong>Your records stay on this computer.</strong> The local server processes the selected file in memory and does not save it. Downloads are saved by your browser and may contain sensitive metadata. Clear results when finished.</p><p>This is a local pilot for reviewing saved logs, not live monitoring or automatic blocking. Stop the server with Ctrl+C in Terminal.</p></footer>
+</main>
+</body></html>
