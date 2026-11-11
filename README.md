@@ -4,6 +4,10 @@
 
 AgentWatch reads JSONL tool-event metadata and checks policy rules. The command line can optionally learn a baseline with Isolation Forest and combine unusual-behavior signals with those rules. It produces an offline HTML report and machine-readable JSON with event IDs and source-line evidence. It never runs tools, blocks traffic, sends messages, or contacts a model API.
 
+![AgentWatch local browser review: choose an activity file, list approved websites, and see which sessions need review](docs/images/browser-view.png)
+
+*The local browser interface (`agentwatch-ui --open`), v0.3.0. Policy rules only; it runs on 127.0.0.1 and processes files in memory.*
+
 ## Why this project
 
 Tool-using AI systems introduce security risks at the boundary between model suggestions and real actions. Current guidance stresses constrained tools, trusted authorization and layered defenses. This project explores a **detective** control for that boundary. It cannot identify the prompt that caused a behavior or prevent prompt injection.

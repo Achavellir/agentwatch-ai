@@ -1,4 +1,6 @@
-# Local developer release 0.2.0
+# Local developer release (0.3.x)
+
+This guide covers the command-line tool introduced in 0.2.0. It still applies to 0.3.x; version 0.3.0 adds an optional local browser interface described in [BROWSER_UI.md](BROWSER_UI.md).
 
 ## Supported use
 
@@ -28,7 +30,7 @@ The trace writer is a single-process integration helper, not automatic instrumen
 
 ## Output and exit status
 
-JSON schema_version is 1; agentwatch_version records the generator. Existing fields remain compatible across 0.2 patch versions. In rules-only mode model and anomaly_margin are null, anomaly is false, and baseline medians are null. This means no ML assessment occurred, not that behavior was normal.
+JSON schema_version is 1; agentwatch_version records the generator. Existing fields have remained compatible from 0.2.0 through 0.3.x. In rules-only mode model and anomaly_margin are null, anomaly is false, and baseline medians are null. This means no ML assessment occurred, not that behavior was normal.
 
 Exit 0 means analysis and report creation completed, including when review findings exist. Exit 2 means invalid arguments, rejected input or a filesystem failure. A review flag is a triage signal, not a confirmed incident. No-signal does not prove safety.
 
