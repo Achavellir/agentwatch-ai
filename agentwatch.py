@@ -16,6 +16,7 @@ __version__ = '0.3.0'
 
 FEATURES = ['calls', 'bytes_sent', 'external_calls', 'sensitive_calls', 'write_calls', 'unique_tools']
 ALLOWED_TOOLS = {'search', 'read', 'http', 'write', 'shell'}
+OUTCOMES = {'ok', 'error', 'denied'}
 
 
 def hostname(url):
@@ -44,6 +45,15 @@ def validate_event(event):
     if not isinstance(event.get('destination', ''), str):
         raise ValueError('invalid destination')
     hostname(event.get('destination', ''))
+    # Optional outcome metadata (added after 0.3.0). Absent in older traces and
+    # never used as ML features, so existing results are unchanged.
+    if 'status' in event and event['status'] not in OUTCOMES:
+        raise ValueError('status must be ok, error or denied')
+    for key in ('seq', 'duration_ms'):
+        if key in event and (type(event[key]) is not int or not 0 <= event[key] <= 10**12):
+            raise ValueError(f'invalid {key}')
+    if 'ts' in event and (not isinstance(event['ts'], str) or not 0 < len(event['ts']) <= 40):
+        raise ValueError('invalid ts')
 
 
 def load(path):

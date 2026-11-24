@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AgentWatch Docs</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sofia+Sans+Condensed:wght@700;800&family=Instrument+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* VOICE work: a documentation site for a security tool, exact and calm
+   IDEA an audit trail: each agent action is a row on a timeline, the one that breaks policy is marked in vermilion
+   PICTURE a session timeline in the hero: tool calls as stations, one flagged with its rule
+   COLOUR white / near-black ink, vermilion #ff4a1c only for findings, pale grey panels; night #120d0b
+   TYPE Sofia Sans Condensed 800 for titles, Instrument Sans body, JetBrains Mono code
+   LAYOUT header; left nav, content, right "on this page" above 1100px; nav becomes a drawer below 900px */
+:root{color-scheme:light dark;--bg:light-dark(#ffffff,#120d0b);--ink:light-dark(#141414,#f3eeea);--mute:light-dark(#5c5c5c,#b4aaa3);--line:light-dark(#e6e6e6,#2e2622);--panel:light-dark(#f6f6f5,#1b1512);--hot:#ff4a1c;--hotink:light-dark(#c72f0a,#ff7a57);--ok:light-dark(#1d7a4a,#5fd39a);--code:light-dark(#f3f2f0,#1e1814)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+html{scroll-padding-top:76px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "Instrument Sans",system-ui,sans-serif;overflow-x:clip}
+a{color:var(--hotink)}
+h1,h2,h3{font-family:"Sofia Sans Condensed","Arial Narrow",sans-serif;line-height:1.05;letter-spacing:-.02em;text-wrap:balance;margin:0}
+h1{font-size:clamp(36px,5vw,52px);font-weight:800}
+h2{font-size:30px;font-weight:800;margin:44px 0 12px}
+h3{font-size:21px;font-weight:700;margin:26px 0 8px}
+p{margin:0 0 14px;max-width:68ch}
+code{font:14px "JetBrains Mono",ui-monospace,monospace;background:var(--code);padding:1px 5px;border-radius:4px;overflow-wrap:anywhere}
+.top{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:14px;padding:10px max(3vw,16px);background:var(--bg);border-bottom:1px solid var(--line)}
+.brand{display:flex;align-items:center;gap:9px;font:800 23px "Sofia Sans Condensed",sans-serif;color:var(--ink);text-decoration:none;white-space:nowrap}
+.brand svg{width:26px;height:26px}
+.ver{font-size:13px;color:var(--mute);border:1px solid var(--line);border-radius:20px;padding:2px 9px;white-space:nowrap}
+.search{margin-left:auto;flex:0 1 260px;min-width:0}
+.brand{flex:none}
+.search input{width:100%;height:40px;font:16px "Instrument Sans",sans-serif;padding:0 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink)}
+.search input:focus,button:focus-visible,a:focus-visible{outline:2px solid var(--hot);outline-offset:2px}
+.gh{color:var(--ink);font-weight:600;text-decoration:none;white-space:nowrap}
+.menu{display:none;height:40px;min-width:44px;border:1px solid var(--line);border-radius:8px;background:var(--panel);color:var(--ink);font:600 15px "Instrument Sans",sans-serif;cursor:pointer}
+.shell{display:grid;grid-template-columns:250px minmax(0,1fr) 210px;max-width:1360px;margin:0 auto}
+nav.side{position:sticky;top:61px;align-self:start;height:calc(100vh - 61px);overflow-y:auto;padding:22px 14px 40px max(3vw,16px);border-right:1px solid var(--line)}
+.grp{font-weight:600;font-size:14px;color:var(--mute);margin:18px 0 6px}
+.grp:first-child{margin-top:0}
+nav.side a{display:block;padding:7px 10px;border-radius:6px;color:var(--ink);text-decoration:none;font-size:15px}
+nav.side a:hover{background:var(--panel)}
+nav.side a[aria-current=page]{background:var(--panel);box-shadow:inset 3px 0 0 var(--hot);font-weight:600}
+nav.side a.hide{display:none}
+.nores{display:none;font-size:14px;color:var(--mute);padding:6px 10px}
+main{padding:30px clamp(18px,4vw,52px) 80px}
+.toc{position:sticky;top:61px;align-self:start;padding:30px 16px 0 8px;font-size:14px}
+.toc b{display:block;font-weight:600;margin-bottom:8px}
+.toc button{display:block;width:100%;text-align:left;background:none;border:0;padding:5px 0;color:var(--mute);font:14px "Instrument Sans",sans-serif;cursor:pointer}
+.toc button:hover{color:var(--ink)}
+.page{display:none}.page.on{display:block}
+.lead{font-size:19px;color:var(--mute);max-width:62ch;margin:14px 0 22px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr);gap:22px;margin-bottom:10px}
+.btns{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0 4px}
+.btn{display:inline-flex;align-items:center;min-height:44px;padding:0 18px;border-radius:8px;font-weight:600;text-decoration:none;border:1px solid var(--line);color:var(--ink);background:var(--bg)}
+.btn.main{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.cmd{display:flex;align-items:center;gap:10px;background:var(--code);border-radius:8px;padding:8px 8px 8px 14px;max-width:640px}
+.cmd code{background:none;padding:0;flex:1}
+.copy{min-height:36px;padding:0 12px;border:1px solid var(--line);border-radius:6px;background:var(--bg);color:var(--ink);font:600 13px "Instrument Sans",sans-serif;cursor:pointer;flex:none}
+.fig{position:relative;min-height:300px;background:var(--panel);border-radius:10px}
+.fig>svg{position:absolute;inset:0;width:100%;height:100%}
+.figcap{font-size:14px;color:var(--mute);margin:8px 0 0}
+svg text{paint-order:stroke;stroke:var(--panel);stroke-width:4px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(10em,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:10px;overflow:hidden;margin:30px 0}
+.stat{background:var(--bg);padding:18px}
+.stat b{display:block;font:800 clamp(30px,4vw,40px)/1 "Sofia Sans Condensed",sans-serif;white-space:nowrap}
+.stat span{font-size:14px;color:var(--mute)}
+.stat.hot b{color:var(--hotink)}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(15em,1fr));gap:14px;margin:16px 0}
+.card{border:1px solid var(--line);border-radius:10px;padding:18px;background:var(--bg)}
+.card h3{margin-top:0}
+.card p{font-size:15px;margin:0;color:var(--mute)}
+a.card{text-decoration:none;color:var(--ink);display:block}
+a.card:hover{border-color:var(--ink)}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}
+.tag{font-size:13px;border:1px solid var(--line);border-radius:20px;padding:1px 9px;color:var(--mute)}
+pre{position:relative;background:var(--code);border-radius:8px;padding:16px;overflow-x:auto;margin:0 0 18px;font:14px/1.55 "JetBrains Mono",ui-monospace,monospace}
+pre .copy{position:absolute;top:8px;right:8px}
+pre code{background:none;padding:0;overflow-wrap:normal}
+.c{color:var(--mute)}
+table{border-collapse:collapse;width:100%;font-size:15px;margin:0 0 20px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-weight:600}
+td.n,th.n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.scroll{overflow-x:auto}
+.mk{display:inline-block;width:14px;height:14px;border-radius:50%;vertical-align:-2px;margin-right:6px}
+.mk.y{background:var(--hot)}.mk.n{border:2px solid var(--mute)}
+.bars{margin:10px 0 24px}
+.bar{display:grid;grid-template-columns:9em minmax(0,1fr) 4.5em;gap:12px;align-items:center;margin:8px 0;font-size:15px}
+.track{height:22px;background:var(--panel);border-radius:4px;overflow:hidden}
+.fill{height:100%;background:var(--hot)}
+.bar .n{text-align:right;font-variant-numeric:tabular-nums;white-space:nowrap}
+.note{border-left:3px solid var(--line);padding:6px 0 6px 14px;color:var(--mute);margin:0 0 18px;max-width:68ch}
+.note.warn{border-color:var(--hot)}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:48px;padding-top:18px;border-top:1px solid var(--line);flex-wrap:wrap}
+.pager a{text-decoration:none;font-weight:600}
+footer{border-top:1px solid var(--line);padding:22px max(3vw,16px);color:var(--mute);font-size:14px;display:flex;flex-wrap:wrap;gap:8px 22px}
+footer a{color:var(--mute)}
+@media(max-width:1100px){.shell{grid-template-columns:240px minmax(0,1fr)}.toc{display:none}}
+@media(max-width:900px){.shell{grid-template-columns:minmax(0,1fr)}.menu{display:block}nav.side{display:none;position:fixed;top:61px;left:0;right:0;height:calc(100vh - 61px);z-index:15;background:var(--bg);border:0;padding:18px 16px}nav.side.open{display:block}.gh{display:none}}
+@media(max-width:600px){.ver{display:none}.search{flex:1 1 0}.brand{font-size:20px}.brand svg{display:none}table{font-size:13px}th,td{padding:7px 5px}.bar{grid-template-columns:6.5em minmax(0,1fr) 4em;font-size:14px}h2{font-size:26px}}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+.pulse{animation:pulse 2.4s ease-in-out infinite;transform-box:fill-box;transform-origin:center}
+@keyframes pulse{50%{opacity:.35}}
+</style>
+</head>
+<body>
+<header class="top">
+  <button class="menu" id="menuBtn" aria-expanded="false" aria-controls="side">Menu</button>
+  <a class="brand" href="#home"><svg viewBox="0 0 26 26" aria-hidden="true"><circle cx="13" cy="13" r="11" fill="none" stroke="currentColor" stroke-width="2.5"/><circle cx="13" cy="13" r="4.5" fill="#ff4a1c"/></svg>AgentWatch</a>
+  <span class="ver">v0.3.0</span>
+  <label class="search"><span style="position:absolute;left:-9999px">Search docs</span><input id="q" type="search" placeholder="Search docs" autocomplete="off"></label>
+  <a class="gh" href="https://github.com/Achavellir/agentwatch-ai">GitHub</a>
+</header>
+
+<div class="shell">
+<nav class="side" id="side" aria-label="Documentation">
+  <div class="grp">Getting started</div>
+  <a href="#home">Overview</a>
+  <a href="#installation">Installation</a>
+  <a href="#quickstart">Quickstart</a>
+  <div class="grp">Concepts</div>
+  <a href="#events">Event schema</a>
+  <a href="#rules">Policy rules</a>
+  <a href="#anomaly">Anomaly scoring</a>
+  <div class="grp">Guides</div>
+  <a href="#browser">Browser view</a>
+  <a href="#web-demo">Real-site demo</a>
+  <a href="#agents">Agent integration</a>
+  <div class="grp">Evaluation</div>
+  <a href="#results">Synthetic results</a>
+  <a href="#protocol">Independent study</a>
+  <div class="grp">Reference</div>
+  <a href="#cli">Command line</a>
+  <a href="#limits">Limitations</a>
+  <a href="#changelog">Changelog</a>
+  <div class="nores" id="nores">No pages match.</div>
+</nav>
+
+<main id="main">
+
+<section class="page" data-route="home" data-title="Overview">
+  <div class="hero">
+    <div>
+      <h1>See what your AI agent actually did</h1>
+      <p class="lead">AgentWatch reads an agent's recorded tool calls, checks each one against your policy, and flags sessions for a person to review, with the evidence attached. It runs locally and needs no paid API.</p>
+      <div class="cmd"><code>pip install git+https://github.com/Achavellir/agentwatch-ai</code><button class="copy" data-copy="pip install git+https://github.com/Achavellir/agentwatch-ai">Copy</button></div>
+      <div class="btns"><a class="btn main" href="#quickstart">Quickstart</a><a class="btn" href="#rules">How detection works</a><a class="btn" href="#results">Results</a><a class="btn" href="https://github.com/Achavellir/agentwatch-ai">GitHub</a></div>
+    </div>
+    <div>
+      <div class="fig" id="timeline" role="img" aria-label="One agent session as a timeline of five tool calls. Four pass policy; an HTTP request to an unapproved host is flagged UNAPPROVED_DESTINATION."></div>
+      <p class="figcap">One session, five tool calls. The read of a sensitive file is allowed; the request to a host outside the approved list is flagged for review.</p>
+    </div>
+  </div>
+
+  <div class="stats">
+    <div class="stat hot"><b>4 / 4</b><span>designed scenarios flagged (combined review)</span></div>
+    <div class="stat"><b>0 / 40</b><span>normal sessions flagged by rules alone</span></div>
+    <div class="stat"><b>5 / 40</b><span>normal sessions flagged by the ML score</span></div>
+    <div class="stat"><b>66</b><span>automated tests in v0.3.0</span></div>
+  </div>
+  <p class="note">All figures come from a frozen synthetic evaluation, not production data. One of the four scenarios is benign high-volume traffic, so "flagged" never means "attack confirmed". See <a href="#results">Synthetic results</a>.</p>
+
+  <h2 id="h-features">What it does</h2>
+  <div class="cards">
+    <div class="card"><h3>Policy rules</h3><p>Four explicit checks: unapproved destinations, sensitive data leaving, writes or shell commands without approval, and network calls with no destination.</p></div>
+    <div class="card"><h3>Anomaly score</h3><p>An Isolation Forest over six per-session counts, trained on a reviewed baseline. It can add a session to review but never removes a rule finding.</p></div>
+    <div class="card"><h3>Evidence reports</h3><p>Offline HTML and JSON reports that link each finding to the exact events behind it. Private folders, no page content stored.</p></div>
+    <div class="card"><h3>Local browser view</h3><p>Upload a trace, filter findings and expand evidence in a browser tab bound to 127.0.0.1. No cloud, no CORS.</p></div>
+  </div>
+
+  <h2 id="h-example">Example</h2>
+  <p>Review a trace with rules only, approving one host:</p>
+  <pre><code>agentwatch --rules-only \
+  --input examples/candidate.jsonl \
+  --allow-domain docs.example.com \
+  --output private-data/review-1</code></pre>
+  <p>Add <code>--baseline examples/baseline.jsonl</code> in place of <code>--rules-only</code> to include the anomaly score. Open <code>report.html</code> in the output folder.</p>
+
+  <h2 id="h-guides">Guides</h2>
+  <div class="cards">
+    <a class="card" href="#web-demo"><h3>Real-site demo</h3><p>One real HTTPS request, reviewed under two policies.</p><div class="tags"><span class="tag">beginner</span><span class="tag">policy</span></div></a>
+    <a class="card" href="#agents"><h3>Record an agent's tools</h3><p>Wrap tool functions so every call is logged with its outcome.</p><div class="tags"><span class="tag">integration</span><span class="tag">in development</span></div></a>
+    <a class="card" href="#protocol"><h3>Run an independent study</h3><p>Split, label blind, freeze, then compare rules and ML.</p><div class="tags"><span class="tag">evaluation</span><span class="tag">in development</span></div></a>
+  </div>
+</section>
+
+<section class="page" data-route="installation" data-title="Installation">
+  <h1>Installation</h1>
+  <p class="lead">AgentWatch needs Python 3.11 or later. It installs two commands: <code>agentwatch</code> and <code>agentwatch-ui</code>.</p>
+  <h2 id="h-pip">From source</h2>
+  <pre><code>git clone https://github.com/Achavellir/agentwatch-ai
+cd agentwatch-ai
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install -c requirements-lock.txt .</code></pre>
+  <p>The lock file pins exact versions of numpy, scipy, scikit-learn, joblib, cloudpickle and threadpoolctl.</p>
+  <p class="note warn">Known issue in v0.3.0: numpy 2.5.3 and scipy 1.18.1 have no Python 3.11 builds, so the locked install fails on 3.11. Use Python 3.12, or install without <code>-c requirements-lock.txt</code>. A fix with per-version pins is prepared and not yet released.</p>
+  <h2 id="h-verify">Check the install</h2>
+  <pre><code>python -m unittest discover -s tests -v
+python evaluate.py
+python scripts/check_installed.py</code></pre>
+  <p><code>evaluate.py</code> is the frozen regression gate: it fails if an expected detection disappears or normal alerts exceed the recorded baseline.</p>
+</section>
+
+<section class="page" data-route="quickstart" data-title="Quickstart">
+  <h1>Quickstart</h1>
+  <p class="lead">Review the bundled example trace in under a minute.</p>
+  <h2 id="h-q1">1. Rules only</h2>
+  <pre><code>agentwatch --rules-only --input examples/candidate.jsonl \
+  --allow-domain docs.example.com --output private-data/review-1</code></pre>
+  <p>No baseline is needed. Each session gets the policy findings that apply to it.</p>
+  <h2 id="h-q2">2. Add the anomaly score</h2>
+  <pre><code>agentwatch --baseline examples/baseline.jsonl --input examples/candidate.jsonl \
+  --allow-domain docs.example.com --output private-data/review-2</code></pre>
+  <p>The baseline must hold at least 30 sessions that someone has reviewed as normal. The bundled one is a demonstration, not a model of any real deployment.</p>
+  <h2 id="h-q3">3. Open the report</h2>
+  <p>Open <code>report.html</code> in the output folder, or run <code>agentwatch-ui --open</code> and choose the trace file. Output folders that already exist are refused, so earlier reviews are never overwritten.</p>
+</section>
+
+<section class="page" data-route="events" data-title="Event schema">
+  <h1>Event schema</h1>
+  <p class="lead">A trace is a JSON Lines file: one object per tool call. Sessions are complete, bounded runs.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Field</th><th>Type</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>event_id</code></td><td>string</td><td>Unique per event; duplicates are rejected</td></tr>
+      <tr><td><code>session_id</code></td><td>string</td><td>Groups events into one run</td></tr>
+      <tr><td><code>tool</code></td><td>string</td><td>One of <code>read</code>, <code>search</code>, <code>http</code>, <code>write</code>, <code>shell</code></td></tr>
+      <tr><td><code>destination</code></td><td>string</td><td>HTTP(S) URL; only scheme and host are kept. URLs with credentials are rejected</td></tr>
+      <tr><td><code>bytes_sent</code></td><td>integer</td><td>Outgoing bytes, not response size</td></tr>
+      <tr><td><code>sensitive</code></td><td>boolean</td><td>Set by trusted application controls</td></tr>
+      <tr><td><code>approved</code></td><td>boolean</td><td>Set by trusted application controls</td></tr>
+    </tbody>
+  </table></div>
+  <p class="note warn">Approval and sensitivity must come from your application, never from the model's own claim about what it is doing.</p>
+  <pre><code>{"event_id":"e1","session_id":"s1","tool":"http","destination":"https://docs.example.com","bytes_sent":125,"sensitive":false,"approved":true}</code></pre>
+  <p>Limits: 10 MB per file on the command line, 2 MB in the browser view.</p>
+</section>
+
+<section class="page" data-route="rules" data-title="Policy rules">
+  <h1>Policy rules</h1>
+  <p class="lead">Four independent checks. Each finding links to the events that triggered it.</p>
+  <div class="scroll"><table>
+    <thead><tr><th>Finding</th><th>Fires when</th></tr></thead>
+    <tbody>
+      <tr><td><code>UNAPPROVED_DESTINATION</code></td><td>A destination's hostname is not in the approved set (exact match, so lookalike hosts are caught)</td></tr>
+      <tr><td><code>SENSITIVE_EXTERNAL_TRANSFER</code></td><td>Sensitive data is sent to a host outside the approved set</td></tr>
+      <tr><td><code>ACTION_WITHOUT_APPROVAL</code></td><td>A <code>write</code> or <code>shell</code> call has no recorded approval</td></tr>
+      <tr><td><code>MISSING_DESTINATION</code></td><td>An HTTP call, or any call sending bytes, has no destination</td></tr>
+    </tbody>
+  </table></div>
+  <p>A session goes to review if any rule fires <em>or</em> its anomaly score is unusual. The model cannot cancel a rule finding.</p>
+</section>
+
+<section class="page" data-route="anomaly" data-title="Anomaly scoring">
+  <h1>Anomaly scoring</h1>
+  <p class="lead">An optional second signal that looks at the shape of a whole session rather than single events.</p>
+  <h2 id="h-feat">Features</h2>
+  <p>Six counts per session, each passed through <code>log1p</code>: tool calls, bytes sent, external calls, sensitive calls, write and shell calls, and distinct tools.</p>
+  <h2 id="h-model">Model</h2>
+  <p>scikit-learn <code>IsolationForest</code> with 200 trees, contamination 0.05, random seed 42 and one worker. A negative margin means unusual. It is not an attack probability.</p>
+  <p class="note">Baseline medians in the report give context for a score. They are not a causal explanation of why a session looks unusual.</p>
+</section>
+
+<section class="page" data-route="browser" data-title="Browser view">
+  <h1>Browser view</h1>
+  <p class="lead">Review a trace without the terminal.</p>
+  <pre><code>agentwatch-ui --open</code></pre>
+  <p>Choose a trace file, enter approved hosts, then filter findings, expand evidence and download HTML or JSON. A synthetic sample is built in. There is no machine learning in the browser view.</p>
+  <h2 id="h-bsec">How it stays local</h2>
+  <p>The server binds to 127.0.0.1 and checks Host, Origin and a per-process token. Uploads stay in memory, sizes and concurrency are limited, and there is no CORS or file-system route. Do not expose it publicly or through a tunnel.</p>
+</section>
+
+<section class="page" data-route="web-demo" data-title="Real-site demo">
+  <h1>Real-site demo</h1>
+  <p class="lead">One real HTTPS request to python.org, recorded automatically and reviewed under two policies.</p>
+  <pre><code>python -m scripts.web_demo --output private-data/web-run-1</code></pre>
+  <div class="scroll"><table>
+    <thead><tr><th>Policy</th><th>Finding</th></tr></thead>
+    <tbody>
+      <tr><td><code>www.python.org</code> approved</td><td>None</td></tr>
+      <tr><td>Only <code>docs.python.org</code> approved</td><td><code>UNAPPROVED_DESTINATION</code></td></tr>
+    </tbody>
+  </table></div>
+  <p>The action is the same; the policy changes. The request follows no redirects, sends no credentials or cookies, caps the response at 1 MiB and saves no page content. This is a scripted integration, not an autonomous agent.</p>
+</section>
+
+<section class="page" data-route="agents" data-title="Agent integration">
+  <h1>Agent integration</h1>
+  <p class="note warn">In development. This code is not in v0.3.0 and has been tested only with a scripted stand-in model, not a real LLM.</p>
+  <p class="lead">Record a tool call where it actually runs, with its outcome, and let your application decide what is approved.</p>
+  <pre><code><span class="c"># agent_tools.py (unreleased)</span>
+from agent_tools import PathPolicy, ToolRecorder
+
+policy = PathPolicy(root=workspace, writable_dirs=("out",),
+                    sensitive_dirs=("secrets",),
+                    network_hosts=frozenset({"docs.python.org"}))
+
+with ToolRecorder("trace.jsonl", "run-1", policy) as rec:
+    read_file = rec.wrap("read", read_file,
+                         describe=lambda path: {"path": path})
+    http_get = rec.wrap("http", http_get,
+                        describe=lambda url: {"url": url})</code></pre>
+  <h2 id="h-out">Outcomes</h2>
+  <p>Each event gains <code>status</code> (<code>ok</code>, <code>error</code> or <code>denied</code>), <code>seq</code>, <code>ts</code> and <code>duration_ms</code>. Denied calls are recorded but never run, so a blocked exfiltration attempt shows as <code>UNAPPROVED_DESTINATION</code> with zero bytes sent.</p>
+  <h2 id="h-comp">Completeness</h2>
+  <p>A sidecar file records when each session opened and closed and how many events it wrote. A check reports unclosed sessions, cut-off traces and gaps in the sequence. It cannot detect a producer that skipped the wrapper altogether.</p>
+  <h2 id="h-ollama">Reference agent</h2>
+  <p>A minimal tool-calling loop for a free local Ollama model, with file and web tools in a throwaway workspace and no shell tool:</p>
+  <pre><code>python -m scripts.ollama_agent --model qwen2.5:7b \
+  --tasks examples/agent_tasks.json --allow-host docs.python.org \
+  --output private-data/agent-run-1</code></pre>
+</section>
+
+<section class="page" data-route="results" data-title="Synthetic results">
+  <h1>Rules caught all three risky scenarios with no false alarms; the model added five</h1>
+  <p class="lead">Frozen synthetic data: 200 baseline sessions, then 40 normal sessions and 4 designed scenarios.</p>
+  <h2 id="h-scen">Designed scenarios</h2>
+  <div class="scroll"><table>
+    <thead><tr><th>Scenario</th><th>Rules</th><th>ML</th><th>Combined</th></tr></thead>
+    <tbody id="scen"></tbody>
+  </table></div>
+  <p><span class="mk y"></span>flagged <span class="mk n" style="margin-left:14px"></span>not flagged. The high-volume case uses approved hosts: it is unusual, not an attack.</p>
+  <h2 id="h-norm">Normal sessions flagged</h2>
+  <div class="bars" id="bars"></div>
+  <p>Combined review flags 9 of 44 sessions. The 12.5% alert rate on normal sessions is from synthetic data and is not a production estimate.</p>
+  <h2 id="h-leak">What this does not show</h2>
+  <p>The evaluator checks fixture hashes and that event IDs, session IDs and session contents do not overlap across splits. But the fixtures were inspected during development and come from one generator, so these numbers are not independent validation. The local-file lab is a separate dataset: it flagged 1 of 20 normal sessions and a designed missing-approval write, and missed its benign high-volume case.</p>
+</section>
+
+<section class="page" data-route="protocol" data-title="Independent study">
+  <h1>Independent study</h1>
+  <p class="note warn">In development. The harness is built and tested on constructed data; no study data or results exist yet.</p>
+  <p class="lead">The question: does anomaly scoring find actionable sessions that rules miss, and is it worth the extra reviewer time?</p>
+  <h2 id="h-steps">Order of operations</h2>
+  <p><b>Split.</b> Whole task families go to baseline, tune or final, so related runs never straddle sets. Policy-violation families never train the baseline.</p>
+  <p><b>Label blind.</b> Reviewers see events only, with no findings or scores, and mark each session normal or actionable.</p>
+  <p><b>Tune, then freeze.</b> Try policies on the tune set only. Freezing pins the policy, settings and file hashes.</p>
+  <p><b>Score once.</b> Scoring refuses if anything changed since the freeze and logs every run.</p>
+  <pre><code>python independent_eval.py split --trace run/activity.jsonl --runs run/runs.jsonl \
+  --study private-data/study-1 --keep-out-of-baseline controlled-violation
+python independent_eval.py freeze --study private-data/study-1 --allow-domain docs.python.org
+python independent_eval.py score --study private-data/study-1 --labels final.csv --output results.json</code></pre>
+  <p>Reported per mode: true and false positives, recall and false-alert rate with 95% Wilson intervals, alerts per reviewer, reviewer agreement, analyzer time and logging completeness.</p>
+</section>
+
+<section class="page" data-route="cli" data-title="Command line">
+  <h1>Command line</h1>
+  <div class="scroll"><table>
+    <thead><tr><th>Option</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>--input PATH</code></td><td>Trace to review (JSON Lines)</td></tr>
+      <tr><td><code>--rules-only</code></td><td>Run policy rules without a baseline</td></tr>
+      <tr><td><code>--baseline PATH</code></td><td>Reviewed normal sessions for the anomaly score (30 or more)</td></tr>
+      <tr><td><code>--allow-domain HOST</code></td><td>Approved host; repeat for each</td></tr>
+      <tr><td><code>--output DIR</code></td><td>New private folder for <code>report.html</code> and <code>report.json</code></td></tr>
+    </tbody>
+  </table></div>
+  <p>Report folders are created with mode 0700 and files with 0600. A completion marker is written only after every report finishes.</p>
+</section>
+
+<section class="page" data-route="limits" data-title="Limitations">
+  <h1>Limitations</h1>
+  <p class="lead">AgentWatch reviews recorded activity. It is not a preventive control, antivirus, EDR or website scanner, and it is not production-validated.</p>
+  <ul>
+    <li>Telemetry can be left out or forged by whatever produces it.</li>
+    <li>Baseline poisoning and drift are not solved.</li>
+    <li>Session counts lose the order and intent of actions.</li>
+    <li>The trace writer relies on the caller's permissions and a single process.</li>
+    <li>Other processes running as the same user, browser extensions and OS swap are outside the protection claim.</li>
+    <li>Passing tests does not prove security. The last dependency advisory check is dated and must be refreshed.</li>
+  </ul>
+  <p>Built with substantial AI coding assistance; the author reviews and owns every claim.</p>
+</section>
+
+<section class="page" data-route="changelog" data-title="Changelog">
+  <h1>Changelog</h1>
+  <div class="scroll"><table>
+    <thead><tr><th>Version</th><th>Changes</th><th class="n">Tests</th></tr></thead>
+    <tbody>
+      <tr><td>Unreleased</td><td>Tool-call recorder with outcomes and completeness checks; local Ollama reference agent; independent study harness; per-Python-version lock pins</td><td class="n">84</td></tr>
+      <tr><td>0.3.0</td><td>Real-site demo with automatic metadata recording</td><td class="n">66</td></tr>
+      <tr><td>0.3.0</td><td>Local browser view with upload, filters, evidence and downloads</td><td class="n">60</td></tr>
+      <tr><td>0.2</td><td>Installable command, rules-only mode, private reports, completion marker</td><td class="n">46</td></tr>
+      <tr><td>Before 0.2</td><td>Shared validation, missing-destination rule, evaluation hash and split checks</td><td class="n">38</td></tr>
+      <tr><td>Prototype</td><td>Isolation Forest, policy rules and offline report</td><td class="n">14</td></tr>
+    </tbody>
+  </table></div>
+</section>
+
+<div class="pager" id="pager"></div>
+</main>
+
+<aside class="toc" id="toc"></aside>
+</div>
+
+<footer>
+  <span>AgentWatch, MIT license. Research prototype by Rishi Achavelli.</span>
+  <a href="https://github.com/Achavellir/agentwatch-ai">GitHub</a>
+</footer>
+
+<script>
+{
+const pages=[...document.querySelectorAll('.page')];
+const links=[...document.querySelectorAll('nav.side a')];
+const order=links.map(a=>a.getAttribute('href').slice(1));
+const side=document.getElementById('side');
+const menuBtn=document.getElementById('menuBtn');
+const toc=document.getElementById('toc');
+const pager=document.getElementById('pager');
+
+const scen=[['Sensitive external transfer',1,1,1],['Unapproved shell command',1,1,1],['Lookalike host',1,0,1],['High-volume approved traffic',0,1,1]];
+const mk=v=>`<span class="mk ${v?'y':'n'}"></span>${v?'Yes':'No'}`;
+document.getElementById('scen').innerHTML=scen.map(r=>`<tr><td>${r[0]}</td><td>${mk(r[1])}</td><td>${mk(r[2])}</td><td>${mk(r[3])}</td></tr>`).join('');
+const bars=[['Rules only',0],['ML only',5],['Combined',5]];
+document.getElementById('bars').innerHTML=bars.map(b=>`<div class="bar"><span>${b[0]}</span><div class="track"><div class="fill" style="width:${b[1]/40*100}%"></div></div><span class="n">${b[1]} / 40</span></div>`).join('');
+
+function show(){
+  let r=location.hash.slice(1);
+  if(!order.includes(r))r='home';
+  pages.forEach(p=>p.classList.toggle('on',p.dataset.route===r));
+  links.forEach(a=>a.getAttribute('href')==='#'+r?a.setAttribute('aria-current','page'):a.removeAttribute('aria-current'));
+  const page=pages.find(p=>p.dataset.route===r);
+  const hs=[...page.querySelectorAll('h2[id]')];
+  toc.innerHTML=hs.length?'<b>On this page</b>'+hs.map(h=>`<button data-to="${h.id}">${h.textContent}</button>`).join(''):'';
+  const i=order.indexOf(r);
+  const prev=i>0?order[i-1]:null,next=i<order.length-1?order[i+1]:null;
+  const t=k=>pages.find(p=>p.dataset.route===k).dataset.title;
+  pager.innerHTML=(prev?`<a href="#${prev}">Previous: ${t(prev)}</a>`:'<span></span>')+(next?`<a href="#${next}">Next: ${t(next)}</a>`:'');
+  document.title=(r==='home'?'AgentWatch Docs':t(r)+' · AgentWatch');
+  side.classList.remove('open');menuBtn.setAttribute('aria-expanded','false');
+  window.scrollTo(0,0);
+  if(r==='home')drawSoon();
+}
+toc.addEventListener('click',e=>{const b=e.target.closest('button');if(b)document.getElementById(b.dataset.to).scrollIntoView({behavior:'smooth'})});
+menuBtn.addEventListener('click',()=>{const o=side.classList.toggle('open');menuBtn.setAttribute('aria-expanded',String(o))});
+
+const q=document.getElementById('q');
+q.addEventListener('input',()=>{
+  const s=q.value.trim().toLowerCase();let n=0;
+  links.forEach(a=>{const p=pages.find(x=>x.dataset.route===a.getAttribute('href').slice(1));const hit=!s||p.textContent.toLowerCase().includes(s);a.classList.toggle('hide',!hit);if(hit)n++});
+  document.getElementById('nores').style.display=n?'none':'block';
+  if(s&&window.innerWidth<=900){side.classList.add('open');menuBtn.setAttribute('aria-expanded','true')}
+});
+
+document.addEventListener('click',async e=>{
+  const b=e.target.closest('.copy');if(!b)return;
+  const text=b.dataset.copy||b.parentElement.querySelector('code').innerText;
+  try{await navigator.clipboard.writeText(text);b.textContent='Copied'}catch(err){b.textContent='Select and copy'}
+  setTimeout(()=>{b.textContent='Copy'},1600);
+});
+document.querySelectorAll('pre').forEach(p=>{const c=document.createElement('button');c.className='copy';c.textContent='Copy';p.prepend(c)});
+
+const fig=document.getElementById('timeline');
+const events=[['read','notes/project.txt','ok'],['read','secrets/token.txt','sensitive'],['write','out/summary.txt','ok'],['http','docs.python.org','ok'],['http','collector.example.net','flag']];
+function draw(){
+  const W=fig.clientWidth,H=fig.clientHeight;if(!W)return;
+  const narrow=W<520;
+  const m={l:narrow?24:40,r:narrow?24:40};
+  const y=H*0.44,step=(W-m.l-m.r)/(events.length-1);
+  const ink=getComputedStyle(document.body).color;
+  let s=`<svg viewBox="0 0 ${W} ${H}" xmlns="http://www.w3.org/2000/svg">`;
+  s+=`<text x="${m.l}" y="30" font-size="14" fill="${ink}" font-weight="600">Session run-1</text>`;
+  s+=`<line x1="${m.l}" y1="${y}" x2="${W-m.r}" y2="${y}" stroke="${ink}" stroke-width="3"/>`;
+  events.forEach((e,i)=>{
+    const x=m.l+i*step,flag=e[2]==='flag';
+    const fill=flag?'#ff4a1c':e[2]==='sensitive'?'var(--panel)':ink;
+    if(flag)s+=`<circle class="pulse" cx="${x}" cy="${y}" r="20" fill="#ff4a1c" opacity=".25"/>`;
+    s+=`<circle cx="${x}" cy="${y}" r="${flag?11:8}" fill="${fill}" stroke="${flag?'#ff4a1c':ink}" stroke-width="3"/>`;
+    const up=i%2===0;
+    const last=events.length-1,anc=i===0?'start':i===last?'end':'middle',tx=i===0?x-8:i===last?x+8:x;
+    s+=`<text x="${tx}" y="${up?y-24:y+34}" font-size="14" text-anchor="${anc}" fill="${flag?'#ff4a1c':ink}" font-weight="600">${e[0]}</text>`;
+    if(!narrow)s+=`<text x="${tx}" y="${up?y-44:y+54}" font-size="13" text-anchor="${anc}" fill="${ink}" opacity=".7">${e[1].length>18?e[1].slice(0,16)+'…':e[1]}</text>`;
+  });
+  const fx=m.l+4*step,bw=Math.min(236,W-m.l-m.r),bx=Math.max(m.l,Math.min(fx-bw+16,W-m.r-bw)),by=H-62;
+  s+=`<line x1="${fx}" y1="${y+14}" x2="${fx}" y2="${by}" stroke="#ff4a1c" stroke-width="2"/>`;
+  s+=`<rect x="${bx}" y="${by}" width="${bw}" height="44" rx="6" fill="#ff4a1c"/>`;
+  s+=`<text x="${bx+12}" y="${by+20}" font-size="13" fill="#fff" font-weight="600" style="stroke:none">UNAPPROVED_DESTINATION</text>`;
+  s+=`<text x="${bx+12}" y="${by+36}" font-size="13" fill="#fff" style="stroke:none">event 5 · host not approved</text>`;
+  s+='</svg>';
+  fig.innerHTML=s;
+}
+const ro=new ResizeObserver(draw);ro.observe(fig);
+function drawSoon(){requestAnimationFrame(draw)}
+window.addEventListener('hashchange',show);
+show();
+}
+</script>
+</body>
+</html>

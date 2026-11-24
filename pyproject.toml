@@ -16,7 +16,7 @@ agentwatch = "agentwatch:main"
 agentwatch-ui = "agentwatch_ui:main"
 
 [tool.setuptools]
-py-modules = ["agentwatch", "trace_writer"]
+py-modules = ["agentwatch", "trace_writer", "agent_tools"]
 
 [tool.setuptools.packages.find]
 include = ["agentwatch_ui"]

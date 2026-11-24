@@ -1,0 +1,70 @@
+{
+  "checked_at": "2026-11-24",
+  "tool": "pip-audit (PyPI advisory service)",
+  "scope": "requirements-lock.txt as resolved on Python 3.11 and 3.12; runtime dependencies only",
+  "note": "Point-in-time advisory lookup, not a security certification.",
+  "python_3_11": [
+    {
+      "name": "cloudpickle",
+      "version": "3.1.2",
+      "vulns": []
+    },
+    {
+      "name": "joblib",
+      "version": "1.6.0",
+      "vulns": []
+    },
+    {
+      "name": "numpy",
+      "version": "2.4.6",
+      "vulns": []
+    },
+    {
+      "name": "scikit-learn",
+      "version": "1.7.2",
+      "vulns": []
+    },
+    {
+      "name": "scipy",
+      "version": "1.17.1",
+      "vulns": []
+    },
+    {
+      "name": "threadpoolctl",
+      "version": "3.7.0",
+      "vulns": []
+    }
+  ],
+  "python_3_12": [
+    {
+      "name": "cloudpickle",
+      "version": "3.1.2",
+      "vulns": []
+    },
+    {
+      "name": "joblib",
+      "version": "1.6.0",
+      "vulns": []
+    },
+    {
+      "name": "numpy",
+      "version": "2.5.3",
+      "vulns": []
+    },
+    {
+      "name": "scikit-learn",
+      "version": "1.7.2",
+      "vulns": []
+    },
+    {
+      "name": "scipy",
+      "version": "1.18.1",
+      "vulns": []
+    },
+    {
+      "name": "threadpoolctl",
+      "version": "3.7.0",
+      "vulns": []
+    }
+  ]
+}
