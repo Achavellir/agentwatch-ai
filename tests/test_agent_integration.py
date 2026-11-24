@@ -56,14 +56,14 @@ class ToolRecorderTests(unittest.TestCase):
             policy = type('P', (Policy,), {'decide': lambda s, t, c, st: Decision(approved=True)})()
             with ToolRecorder(trace, 's', policy) as rec:
                 fetch = rec.wrap('http', lambda url: 'ok', describe=lambda url: {'url': url})
-                fetch(url='https://docs.example.com/secret/path?key=abc')
+                fetch(url='https://docs.example.com/secret/path?key=zqxsecret')
                 with self.assertRaises(PermissionError):
                     fetch(url='https://user:pw@docs.example.com/')
                 with self.assertRaises(PermissionError):
                     fetch(url='file:///etc/passwd')
             text = trace.read_text()
             self.assertNotIn('secret', text)
-            self.assertNotIn('abc', text)
+            self.assertNotIn('zqxsecret', text)  # not hex, so random event ids can't match
             self.assertNotIn('pw', text)
             rows = events(trace)
             self.assertEqual([r['status'] for r in rows], ['ok', 'denied', 'denied'])
