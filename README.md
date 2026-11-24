@@ -69,6 +69,10 @@ Either signal causes analyst review. A normal-looking ML score never suppresses 
 
 ## Real integration
 
+For a real public-site request with automatic metadata recording and two policy
+reports, see the [real website activity demo](docs/REAL_WEBSITE_DEMO.md).
+It is a scripted integration example, not an autonomous agent or website scanner.
+
 Map your application's events into one JSON object per line:
 
 ```json
