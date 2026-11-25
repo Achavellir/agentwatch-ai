@@ -67,6 +67,16 @@ Four rule signals are evaluated independently:
 
 Either signal causes analyst review. A normal-looking ML score never suppresses a policy finding.
 
+## Real-agent integration and independent evaluation (in progress)
+
+`agent_tools.py` records an agent's tool calls where they execute, with outcomes
+(ok/error/denied) and completeness checks. `scripts/ollama_agent.py` is a reference
+agent that uses a free local Ollama model. `independent_eval.py` enforces a
+split → blind label → freeze → score protocol. Both are tested with scripted models
+and constructed test data only. **No real-LLM runs or study results exist yet.** See
+[agent integration](docs/AGENT_INTEGRATION.md), [evaluation protocol](docs/INDEPENDENT_EVALUATION.md)
+and [the November 24 verification](docs/VERIFICATION_2026-11-24.md).
+
 ## Real integration
 
 For a real public-site request with automatic metadata recording and two policy
