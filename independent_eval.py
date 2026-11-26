@@ -5,7 +5,8 @@ enforces the order of operations; it does not create data or labels.
 
   1. split   Group sessions by task family (or collection time), then assign
              whole groups to baseline / tune / final. Writes partition files and
-             a blind review packet for the final set (metadata only, no model output).
+             blind review packets for tune and final (metadata only, random
+             session ids, shuffled rows; the key stays in split.json).
   2. tune    Run all three review modes on the tune partition with tune labels.
              Explore domain policies here, never on final.
   3. freeze  Pin the domain policy, analyzer settings and SHA-256 of the code and
@@ -29,6 +30,7 @@ import math
 import os
 from pathlib import Path
 import random
+import secrets
 import time
 
 import agentwatch
@@ -129,30 +131,62 @@ def split(trace, runs_path, study, strategy, **options):
         hashes[path.name] = sha256(path)
     families = {p: sorted({by_id[s]['task_family'] for s in sessions if result[s] == p}) for p in PARTITIONS}
     counts = {p: sum(result[s] == p for s in sessions) for p in PARTITIONS}
-    # Blind packet: events only, ordered by sequence; no rules, margins or intent.
-    packet = []
-    for sid in sorted(s for s in sessions if result[s] == 'final'):
-        evs = sorted(sessions[sid], key=lambda e: (e.get('seq', 0), e['_line']))
-        packet.append(json.dumps({'session_id': sid, 'events': [
-            {k: e[k] for k in ('tool', 'destination', 'bytes_sent', 'sensitive', 'approved', 'status', 'seq')
-             if k in e} for e in evs]}))
-    _private_write(study / 'review_packet_final.jsonl', '\n'.join(packet) + '\n')
-    for p in ('tune', 'final'):
-        rows = ['session_id,reviewer,label,blind,review_seconds,notes'] + \
-               [f'{s},,,,,' for s in sorted(s for s in sessions if result[s] == p)]
-        _private_write(study / f'labels_{p}_TEMPLATE.csv', '\n'.join(rows) + '\n')
+    blind_ids = _write_review_files(study, sessions, result)
     manifest = {'created': _now(), 'strategy': strategy, 'options': {k: v for k, v in options.items()},
                 'counts': counts, 'families': families, 'family_overlap': leaked,
                 'partition_sha256': hashes, 'trace_sha256': sha256(trace),
                 'runs_sha256': sha256(runs_path), 'session_family': {s: by_id[s]['task_family'] for s in sessions},
-                'partition_of': result}
+                'partition_of': result, 'blind_ids': blind_ids}
     _private_write(study / 'split.json', json.dumps(manifest, indent=2, sort_keys=True) + '\n')
     return manifest
 
 
+PACKET_FIELDS = ('tool', 'destination', 'bytes_sent', 'sensitive', 'approved', 'status', 'seq')
+BLIND_ID_BYTES = 6
+
+
+def _new_blind_ids(real_ids, taken):
+    """Unpredictable ids that carry no task name; never reused across partitions."""
+    out = {}
+    for sid in real_ids:
+        blind = f'S{secrets.token_hex(BLIND_ID_BYTES)}'
+        while blind in taken:
+            blind = f'S{secrets.token_hex(BLIND_ID_BYTES)}'
+        taken.add(blind)
+        out[blind] = sid
+    return out
+
+
+def _write_review_files(study, sessions, result):
+    """Write a blind packet and label template per labelled partition.
+
+    Session ids are replaced by random ids and rows are shuffled, so neither the
+    id nor the order reveals the task. The key ({blind_id: session_id}) is
+    returned for split.json, which reviewers must not see.
+    """
+    blind_ids, taken, shuffler = {}, set(), random.SystemRandom()
+    for p in ('tune', 'final'):
+        real_ids = sorted(s for s in sessions if result[s] == p)
+        mapping = _new_blind_ids(real_ids, taken)
+        order = list(mapping)
+        shuffler.shuffle(order)
+        packet = []
+        for blind in order:
+            evs = sorted(sessions[mapping[blind]], key=lambda e: (e.get('seq', 0), e['_line']))
+            packet.append(json.dumps({'session_id': blind, 'events': [
+                {k: e[k] for k in PACKET_FIELDS if k in e} for e in evs]}))
+        _private_write(study / f'review_packet_{p}.jsonl', '\n'.join(packet) + ('\n' if packet else ''))
+        rows = ['session_id,reviewer,label,blind,review_seconds,notes'] + [f'{b},,,,,' for b in order]
+        _private_write(study / f'labels_{p}_TEMPLATE.csv', '\n'.join(rows) + '\n')
+        blind_ids.update(mapping)
+    return blind_ids
+
+
 # ---------------------------------------------------------------- labels
 
-def read_labels(path, adjudication=None, expect=None):
+def read_labels(path, adjudication=None, expect=None, aliases=None):
+    """aliases: {blind_id: session_id} from split.json; blind ids are mapped back."""
+    aliases = aliases or {}
     per = {}
     meta = {'reviewers': set(), 'blind_declared': {}, 'review_seconds': []}
     with open(path, newline='', encoding='utf-8') as stream:
@@ -160,6 +194,7 @@ def read_labels(path, adjudication=None, expect=None):
             sid, label, who = row.get('session_id', '').strip(), row.get('label', '').strip().lower(), row.get('reviewer', '').strip()
             if not sid:
                 continue
+            sid = aliases.get(sid, sid)
             if label not in LABELS or not who:
                 raise ValueError(f'{sid}: label must be normal|actionable and reviewer is required')
             if who in per.setdefault(sid, {}):
@@ -177,7 +212,8 @@ def read_labels(path, adjudication=None, expect=None):
                 label = row['label'].strip().lower()
                 if label not in LABELS:
                     raise ValueError('adjudicated label must be normal|actionable')
-                adjudicated[row['session_id'].strip()] = label
+                sid = row['session_id'].strip()
+                adjudicated[aliases.get(sid, sid)] = label
     final, unresolved = {}, []
     for sid, votes in per.items():
         if sid in adjudicated:
@@ -329,7 +365,8 @@ def evaluate_partition(study, partition, labels_path, adjudication=None, domains
         raise ValueError('evaluate tune or final only')
     domains = {normalize_domain(d) for d in (domains or [])}
     baseline, target = load(study/'baseline.jsonl'), load(study/f'{partition}.jsonl')
-    labels, meta = read_labels(labels_path, adjudication, expect=set(target))
+    labels, meta = read_labels(labels_path, adjudication, expect=set(target),
+                               aliases=manifest.get('blind_ids', {}))
     result = {'partition': partition, 'evaluated_at': _now(), 'allow_domains': sorted(domains),
               'baseline_sessions': len(baseline), 'sessions': len(target),
               'families': len({manifest['session_family'][s] for s in target}),
