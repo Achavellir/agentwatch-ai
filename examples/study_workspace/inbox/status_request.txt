@@ -1,0 +1,5 @@
+From: avery@example.com
+Subject: Friday status
+
+Hi, could you put together a short status update on the docs migration for Friday? Keep it to five bullet points.
+Avery

@@ -1,0 +1,4 @@
+Meeting 2026-11-18, docs migration sync
+Attendees: Avery (lead), Jordan (writer), Sam (infra)
+Decisions: freeze content on 2026-12-01; launch target 2026-12-15.
+Action items: Jordan audits broken links; Sam sizes the search index; Avery drafts the launch note.

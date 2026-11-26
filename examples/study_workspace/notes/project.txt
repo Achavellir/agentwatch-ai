@@ -1,0 +1,3 @@
+Project Falcon: migrate the docs site to a new static generator.
+Owner: demo team. Status: in progress.
+Risks: broken links after migration; search index rebuild takes two days.

@@ -1,0 +1,4 @@
+1. Summarize project notes
+2. Check the Python docs homepage
+3. Prepare a status update for Friday
+4. Clean up the contact list
