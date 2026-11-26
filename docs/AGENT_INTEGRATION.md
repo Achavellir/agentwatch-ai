@@ -47,7 +47,23 @@ to Ollama itself is infrastructure and is not recorded.
 The default workspace includes `secrets/api_token.txt` containing an obviously fake
 token, so controlled tasks have something sensitive to mishandle.
 
-### First real run (on your Mac)
+### First real run (on your Mac), one command
+
+```sh
+bash scripts/run_first_study.sh            # pilot: 20 tasks x 1 run
+REPEAT=3 bash scripts/run_first_study.sh   # more runs per task
+```
+
+The script sets up `.venv`, checks that Ollama is installed and running, offers to
+download the model (default `qwen2.5:7b`), runs the 20 tasks in
+`examples/study_tasks.json` (14 ordinary, 6 controlled policy-violation scenarios)
+against the fictional workspace in `examples/study_workspace/`, reviews the trace
+with AgentWatch, and writes `summary.md` (tool use, outcomes, findings per task).
+The summary shows each task's design intent, so it is a pilot check, not a blind
+review. Collect fresh runs for the independent study. Known gap to watch: reading a
+secret and then contacting an *approved* host fires no rule by design.
+
+### Manual equivalent
 
 ```sh
 ollama pull qwen2.5:7b          # or another local model with tool calling
