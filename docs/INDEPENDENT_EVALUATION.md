@@ -25,8 +25,12 @@ alone, at a reviewer workload the developer would accept?
    period instead and refuses if a family spans periods. Controlled-violation families
    never train the baseline. The baseline must also be reviewed as normal; the tool
    cannot check that for you.
-3. **Blind review packet.** `review_packet_final.jsonl` holds the final sessions'
-   events only: no rule findings, margins, task names or intent. Reviewers fill in
+3. **Blind review packet.** `review_packet_final.jsonl` (and `review_packet_tune.jsonl`)
+   holds each session's events only: no rule findings, margins, task names or intent.
+   Session ids are replaced by random ids (e.g. `S1a2b3c4d5e6f`) and rows are
+   shuffled, so neither the id nor the order reveals the task. The key lives in
+   `split.json` under `blind_ids`; never give reviewers `split.json` or the partition
+   `.jsonl` files. Scoring maps blind ids back automatically. Reviewers fill in
    `labels_final_TEMPLATE.csv` with `normal` or `actionable`, plus `blind=yes|no` and
    optional `review_seconds`. Have them define "actionable" in writing beforehand.
    With two reviewers, disagreements need an adjudication CSV; agreement and Cohen's

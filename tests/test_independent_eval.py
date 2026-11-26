@@ -32,13 +32,19 @@ def make_study_inputs(root, families=40, runs_per_family=4):
     return root/'trace.jsonl', root/'runs.jsonl'
 
 
-def write_labels(path, sessions, reviewer='r1', flip=()):
+def write_labels(path, sessions, reviewer='r1', flip=(), alias=None):
+    """alias: {real_session_id: blind_id}; when given, rows use the blind id."""
     with open(path, 'w', newline='') as stream:
         w = csv.writer(stream)
         w.writerow(['session_id', 'reviewer', 'label', 'blind', 'review_seconds', 'notes'])
         for sid in sorted(sessions):
             actionable = sid.startswith('controlled-violation') != (sid in flip)
-            w.writerow([sid, reviewer, 'actionable' if actionable else 'normal', 'yes', '30', ''])
+            row_id = alias[sid] if alias else sid
+            w.writerow([row_id, reviewer, 'actionable' if actionable else 'normal', 'yes', '30', ''])
+
+
+def read_packet(path):
+    return [json.loads(line) for line in Path(path).read_text().splitlines() if line.strip()]
 
 
 class IndependentEvalTests(unittest.TestCase):
@@ -71,6 +77,44 @@ class IndependentEvalTests(unittest.TestCase):
         again = ie.assign(runs, 'family',
                           seed=3, tune=0.2, final=0.3, keep_out=['controlled-violation'])
         self.assertEqual(again, m['partition_of'])
+
+    def test_review_packets_hide_session_names_and_order(self):
+        m = self.split()
+        study = self.root/'study'
+        families = set(m['session_family'].values())
+        for part in ('tune', 'final'):
+            real = {s for s, p in m['partition_of'].items() if p == part}
+            packet_path = study/f'review_packet_{part}.jsonl'
+            template_path = study/f'labels_{part}_TEMPLATE.csv'
+            text = packet_path.read_text() + template_path.read_text()
+            for name in real | families:
+                self.assertNotIn(name, text)
+            rows = read_packet(packet_path)
+            blind = [r['session_id'] for r in rows]
+            self.assertEqual(len(set(blind)), len(real))
+            # Every blind id maps back to exactly this partition's sessions.
+            self.assertEqual({m['blind_ids'][b] for b in blind}, real)
+            with open(template_path, newline='') as stream:
+                self.assertEqual({r['session_id'] for r in csv.DictReader(stream)}, set(blind))
+            # Rows are shuffled, not grouped by task.
+            self.assertNotEqual([m['blind_ids'][b] for b in blind], sorted(real))
+            # Events per session are unchanged apart from the id.
+            original = ie.load(study/f'{part}.jsonl')
+            for r in rows:
+                self.assertEqual(len(r['events']), len(original[m['blind_ids'][r['session_id']]]))
+
+    def test_labels_keyed_by_blind_ids_score_like_real_ids(self):
+        m = self.split()
+        final = [s for s, p in m['partition_of'].items() if p == 'final']
+        alias = {real: blind for blind, real in m['blind_ids'].items()}
+        ie.freeze(self.root/'study', ['docs.python.org'])
+        write_labels(self.root/'real.csv', final)
+        write_labels(self.root/'blind.csv', final, alias=alias)
+        real = ie.evaluate_partition(self.root/'study', 'final', self.root/'real.csv')['results']
+        blind = ie.evaluate_partition(self.root/'study', 'final', self.root/'blind.csv')['results']
+        for mode in ie.MODES:
+            for k in ('tp', 'fp', 'fn', 'tn'):
+                self.assertEqual(real[mode][k], blind[mode][k])
 
     def test_time_split_reports_family_spanning_partitions(self):
         runs = [{'session_id': 'a1', 'task_family': 'a', 'finished_at': '2026-12-01'},
