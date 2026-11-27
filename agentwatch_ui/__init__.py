@@ -125,7 +125,16 @@ class Handler(BaseHTTPRequestHandler):
             self.send_body(429, {'error': 'Another review is running. Try again shortly.'})
             return
         try:
-            length = int(lengths[0])
+            status, body = self.review(int(lengths[0]))
+        finally:
+            # Release before replying, so a client that sends its next review as soon as
+            # this response arrives never sees a spurious 429.
+            self.server.review_lock.release()
+        self.send_body(status, body)
+
+    def review(self, length):
+        """Read and review one upload. Returns (status, body); never raises."""
+        try:
             raw = self.rfile.read(length)
             if len(raw) != length:
                 raise ValueError('Upload was incomplete. Please try again.')
@@ -138,30 +147,25 @@ class Handler(BaseHTTPRequestHandler):
                 raise ValueError('Use at most 100 exact website hostnames.')
             encoded = data['events'].encode('utf-8')
             if len(encoded) > MAX_FILE_BYTES:
-                self.send_body(413, {'error': 'Choose an activity file of 2 MB or less.'})
-                return
+                return 413, {'error': 'Choose an activity file of 2 MB or less.'}
             domains = {normalize_domain(d) for d in data['domains']}
             candidate = load_bytes(encoded)
             if len(candidate) > 2000 or sum(map(len, candidate.values())) > 20000:
                 raise ValueError('Use at most 2,000 sessions and 20,000 events per browser review.')
             report = analyze_rules(candidate, domains)
-            result = {'report': report, 'html': render(report)}
+            return 200, {'report': report, 'html': render(report)}
         except UnicodeError:
-            self.send_body(400, {'error': 'Use a UTF-8 JSONL activity file.'})
+            return 400, {'error': 'Use a UTF-8 JSONL activity file.'}
         except json.JSONDecodeError:
-            self.send_body(400, {'error': 'Upload is not valid JSON.'})
+            return 400, {'error': 'Upload is not valid JSON.'}
         except RecursionError:
-            self.send_body(400, {'error': 'Input nesting is too deep.'})
+            return 400, {'error': 'Input nesting is too deep.'}
         except ValueError as error:
-            self.send_body(400, {'error': str(error)})
+            return 400, {'error': str(error)}
         except TimeoutError:
-            self.send_body(408, {'error': 'Upload timed out. Try again.'})
+            return 408, {'error': 'Upload timed out. Try again.'}
         except Exception:
-            self.send_body(500, {'error': 'Review could not finish. Try a smaller file or restart AgentWatch.'})
-        else:
-            self.send_body(200, result)
-        finally:
-            self.server.review_lock.release()
+            return 500, {'error': 'Review could not finish. Try a smaller file or restart AgentWatch.'}
 
 
 def create_server(port=0):
