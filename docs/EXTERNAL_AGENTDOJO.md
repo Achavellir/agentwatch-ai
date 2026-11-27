@@ -30,8 +30,9 @@ The design below was written down before any run was converted (2026-11-27).
 
 Each user task goes to **baseline** when `independent_eval._bucket(user_task_id, 0) < 0.5`,
 otherwise to **test**. The baseline is the no-attack runs of baseline tasks (at least 30
-required). The test set is every included run of test tasks. Nothing is tuned; an output
-folder is scored once (`results.json` is created exclusively).
+required). The test set is every included run of test tasks. Nothing is tuned. The output
+folder must not exist yet; it is created atomically before any file is written, so each
+folder holds exactly one scoring and two runs can never overwrite each other's files.
 
 ## Mapping to AgentWatch events
 

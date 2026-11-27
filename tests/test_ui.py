@@ -159,6 +159,15 @@ class BrowserTests(unittest.TestCase):
         self.assertEqual(self.request('POST', '/api/review', b'{', headers)[0], 400)
         self.assertEqual(self.request('DELETE', '/')[0], 501)
 
+    def test_review_lock_is_free_once_a_response_arrives(self):
+        # A follow-up review sent right after a response must never see 429.
+        headers = {'Content-Type': 'application/json', 'Origin': self.origin,
+                   'X-AgentWatch-Token': self.server.token}
+        for body in (b'{', json.dumps(self.payload()).encode()):
+            for _ in range(20):
+                self.request('POST', '/api/review', body, headers)
+                self.assertFalse(self.server.review_lock.locked())
+
 
 class LaunchTests(unittest.TestCase):
     def test_version_and_port_validation(self):

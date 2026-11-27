@@ -8,7 +8,8 @@ the run files as data only and never runs AgentDojo code.
   python -m scripts.convert_agentdojo --runs PATH/agentdojo/runs --output OUT_DIR \
       --model gpt-4o-2024-05-13 --model claude-3-5-sonnet-20241022
 
-The results file is created exclusively, so the same output folder is scored once.
+The output folder must not exist yet; it is created atomically before anything is
+written, so each folder holds exactly one scoring.
 """
 import argparse
 import collections
@@ -140,9 +141,8 @@ def _score(output_dir, records, primary, secondary, domains):
 def run_study(runs_dir, output_dir, models, suite=SUITE, attack=ATTACK, seed=SEED,
               baseline_fraction=BASELINE_FRACTION, min_baseline=MIN_BASELINE):
     output_dir = Path(output_dir)
-    results_path = output_dir / 'results.json'
-    if results_path.exists():
-        raise FileExistsError(f'{results_path} exists: this output folder was already scored once')
+    if output_dir.exists():
+        raise FileExistsError(f'{output_dir} already exists: each study needs a new output folder')
     records, skipped = collect(runs_dir, models, suite, attack)
     side = split_tasks(records, seed, baseline_fraction)
     baseline, primary, secondary = partition(records, side)
@@ -150,7 +150,14 @@ def run_study(runs_dir, output_dir, models, suite=SUITE, attack=ATTACK, seed=SEE
         raise ValueError(f'baseline has {len(baseline)} sessions; at least {min_baseline} are required')
     # Domain policy comes from the baseline only, before any test label is used.
     domains = sorted({hostname(e['destination']) for r in baseline for e in r['events'] if e['destination']})
-    output_dir.mkdir(parents=True, exist_ok=True)
+    # Claim the folder atomically before writing anything, so two runs aimed at the same
+    # folder can never overwrite each other's partition files.
+    output_dir.parent.mkdir(parents=True, exist_ok=True)
+    try:
+        output_dir.mkdir()
+    except FileExistsError as error:
+        raise FileExistsError(f'{output_dir} already exists: each study needs a new output folder') from error
+    results_path = output_dir / 'results.json'
     for name, part in (('baseline', baseline), ('test_primary', primary), ('test_secondary', secondary)):
         _write_jsonl(output_dir / f'{name}.jsonl', part)
     labels, result, primary_rows, secondary_rows = _score(output_dir, records, primary, secondary, domains)

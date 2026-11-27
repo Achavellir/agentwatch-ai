@@ -116,8 +116,25 @@ class StudyTests(unittest.TestCase):
         baseline_ids = {json.loads(l)['session_id'] for l in (out / 'baseline.jsonl').read_text().splitlines()}
         self.assertTrue(all(s.endswith('|none') for s in baseline_ids))
         self.assertTrue(all(result['split'][s.split('|')[1]] == 'baseline' for s in baseline_ids))
-        with self.assertRaisesRegex(FileExistsError, 'results'):
+        with self.assertRaisesRegex(FileExistsError, 'already exists'):
             cad.run_study(self.runs, out, MODELS)
+
+    def test_existing_output_folder_is_refused_before_anything_is_written(self):
+        make_study(self.runs)
+        out = self.root / 'out'
+        out.mkdir()
+        (out / 'baseline.jsonl').write_text('other study\n')
+        with self.assertRaisesRegex(FileExistsError, 'already exists'):
+            cad.run_study(self.runs, out, MODELS)
+        self.assertEqual((out / 'baseline.jsonl').read_text(), 'other study\n')
+        self.assertEqual(sorted(p.name for p in out.iterdir()), ['baseline.jsonl'])
+
+    def test_failed_validation_leaves_no_output_folder(self):
+        make_study(self.runs, tasks=6)
+        out = self.root / 'out'
+        with self.assertRaises(ValueError):
+            cad.run_study(self.runs, out, MODELS)
+        self.assertFalse(out.exists())
 
     def test_split_is_deterministic_by_user_task(self):
         make_study(self.runs, tasks=10)
